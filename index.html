@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Марина Кирина — Сайты · Боты · Автоматизации · 152-ФЗ</title>
+<meta name="description" content="Создаю сайты, Telegram-боты и автоматизации. Каждый проект — сразу по 152-ФЗ: политика, согласия, уведомление в РКН. Без штрафов до 18 млн ₽.">
+<meta property="og:title" content="Марина Кирина — Сайты · Боты · Автоматизации · 152-ФЗ">
+<meta property="og:description" content="Сайты, Telegram-боты, автоматизации. Каждый проект сразу по закону — без штрафов до 18 млн ₽ от Роскомнадзора.">
+<meta property="og:type" content="website">
+
+<!-- SELF-HOSTED FONTS — 152-ФЗ compliant: no Google Fonts CDN -->
+<!-- Fallback stack only; Claude Code operator must self-host actual font files -->
+<style>
+/* === DESIGN SYSTEM === */
+:root {
+  --bg:        #0c0c10;
+  --bg2:       #121218;
+  --bg3:       #1a1a24;
+  --surface:   #1e1e2c;
+  --border:    rgba(255,255,255,0.08);
+  --border2:   rgba(255,255,255,0.14);
+
+  --amber:     #f5a623;
+  --amber-dim: #c4841a;
+  --amber-glow:rgba(245,166,35,0.15);
+  --red:       #e84040;
+  --red-dim:   rgba(232,64,64,0.12);
+  --green:     #3ecf8e;
+
+  --text:      #e8e8f0;
+  --text2:     #9898b0;
+  --text3:     #5c5c7a;
+
+  /* Typography — serif display + humanist sans, no Google CDN */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body:    'DM Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+  --radius:  12px;
+  --radius2: 20px;
+  --shadow:  0 4px 32px rgba(0,0,0,0.5);
+}
+
+/* === RESET === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+a { color: var(--amber); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; }
+
+/* === NOISE TEXTURE OVERLAY === */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === LAYOUT === */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+section { position: relative; z-index: 1; }
+
+/* === ANIMATIONS === */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes pulse-border {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(245,166,35,0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(245,166,35,0); }
+}
+@keyframes scanline {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(100%); }
+}
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+
+/* === NAV === */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px 0;
+  transition: background .3s, backdrop-filter .3s;
+}
+nav.scrolled {
+  background: rgba(12,12,16,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.logo span { color: var(--amber); }
+.nav-cta {
+  background: var(--amber);
+  color: #000;
+  font-weight: 700;
+  font-size: .85rem;
+  padding: 9px 20px;
+  border-radius: 100px;
+  letter-spacing: .02em;
+  transition: transform .2s, box-shadow .2s;
+}
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(245,166,35,0.4);
+  text-decoration: none;
+}
+
+/* === HERO === */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 120px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(245,166,35,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,166,35,0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+}
+.hero-glow {
+  position: absolute;
+  top: -20%; left: 60%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--amber-glow);
+  border: 1px solid rgba(245,166,35,0.3);
+  color: var(--amber);
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+  animation: fadeIn .8s ease both;
+}
+.hero-badge::before {
+  content: '';
+  width: 7px; height: 7px;
+  background: var(--amber);
+  border-radius: 50%;
+  animation: pulse-border 2s infinite;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  animation: fadeUp .9s ease both .1s;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--amber);
+}
+.hero-sub {
+  font-size: 1.1rem;
+  color: var(--text2);
+  max-width: 560px;
+  margin-bottom: 12px;
+  animation: fadeUp .9s ease both .2s;
+}
+.hero-alert {
+  display: inline-flex; align-items: flex-start; gap: 10px;
+  background: var(--red-dim);
+  border: 1px solid rgba(232,64,64,0.25);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 36px;
+  max-width: 560px;
+  font-size: .88rem;
+  color: #ffb3b3;
+  animation: fadeUp .9s ease both .3s;
+}
+.hero-alert-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+.hero-btns {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  animation: fadeUp .9s ease both .4s;
+}
+.hero-layout {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+.hero-text {
+  flex: 1;
+  min-width: 0;
+}
+.hero-photo {
+  flex-shrink: 0;
+}
+.hero-photo img {
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(245,166,35,0.4);
+  box-shadow: 0 0 40px rgba(245,166,35,0.15);
+  display: block;
+  animation: fadeIn 1s ease both .3s;
+}
+@media (max-width: 768px) {
+  .hero-layout {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-photo img {
+    width: 160px;
+    height: 160px;
+  }
+  .hero-sub, .hero-alert {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-btns {
+    justify-content: center;
+  }
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--amber);
+  color: #000;
+  font-weight: 700;
+  font-size: .95rem;
+  padding: 14px 28px;
+  border-radius: 100px;
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(245,166,35,0.45);
+  text-decoration: none;
+}
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  font-weight: 600;
+  font-size: .95rem;
+  padding: 14px 28px;
+  border-radius: 100px;
+  transition: background .2s, border-color .2s;
+}
+.btn-ghost:hover {
+  background: var(--surface);
+  border-color: var(--amber);
+  text-decoration: none;
+}
+
+/* === SECTION HEADER === */
+.section-label {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 1.05rem;
+  color: var(--text2);
+  max-width: 600px;
+}
+
+/* === PAIN SECTION === */
+.pain { padding: 100px 0; }
+.pain-card {
+  background: var(--red-dim);
+  border: 1px solid rgba(232,64,64,0.2);
+  border-radius: var(--radius2);
+  padding: 40px;
+  margin: 48px 0;
+  position: relative;
+  overflow: hidden;
+}
+.pain-card::before {
+  content: 'ВНИМАНИЕ';
+  position: absolute; top: 20px; right: 28px;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .15em;
+  color: var(--red);
+  opacity: 0.5;
+}
+.pain-intro {
+  font-size: 1.05rem;
+  color: var(--text2);
+  margin-bottom: 28px;
+  line-height: 1.75;
+}
+.fines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+.fine-item {
+  background: rgba(232,64,64,0.08);
+  border: 1px solid rgba(232,64,64,0.2);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+}
+.fine-amount {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--red);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 4px;
+}
+.fine-desc {
+  font-size: .82rem;
+  color: var(--text2);
+  line-height: 1.45;
+}
+.errors-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 36px;
+}
+.errors-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: .9rem;
+  color: var(--text2);
+}
+.errors-list li::before {
+  content: '✗';
+  color: var(--red);
+  font-weight: 800;
+  flex-shrink: 0;
+  font-size: 1rem;
+}
+
+/* === SERVICES === */
+.services { padding: 100px 0; background: var(--bg2); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 52px;
+}
+.service-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color .25s, transform .25s;
+}
+.service-card:hover {
+  border-color: var(--amber-dim);
+  transform: translateY(-4px);
+}
+.service-card.featured {
+  border-color: rgba(245,166,35,0.3);
+  background: linear-gradient(135deg, var(--surface), rgba(245,166,35,0.06));
+}
+.service-card.featured::after {
+  content: 'МОЯ ФИШКА';
+  position: absolute; top: 16px; right: 16px;
+  font-size: .65rem; font-weight: 800;
+  letter-spacing: .12em;
+  color: var(--amber);
+  background: var(--amber-glow);
+  border: 1px solid rgba(245,166,35,0.25);
+  padding: 3px 9px;
+  border-radius: 100px;
+}
+.service-icon {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+  display: block;
+}
+.service-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+.service-desc {
+  font-size: .9rem;
+  color: var(--text2);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.service-tag {
+  display: inline-block;
+  background: var(--amber-glow);
+  color: var(--amber);
+  font-size: .75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1px solid rgba(245,166,35,0.2);
+}
+
+/* 152 DOCS BLOCK */
+.fz-docs {
+  margin-top: 60px;
+  background: linear-gradient(135deg, var(--bg3), rgba(245,166,35,0.03));
+  border: 1px solid rgba(245,166,35,0.25);
+  border-left: 4px solid var(--amber);
+  border-radius: var(--radius2);
+  padding: 36px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.fz-docs::after {
+  content: '152-ФЗ';
+  position: absolute;
+  right: 28px; top: 20px;
+  font-size: .65rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  color: var(--amber);
+  opacity: 0.35;
+}
+.fz-docs h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+.fz-docs p {
+  color: var(--text2);
+  font-size: .95rem;
+  margin-bottom: 24px;
+}
+.fz-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.fz-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: .9rem;
+  color: var(--text2);
+}
+.fz-item::before {
+  content: '✓';
+  color: var(--green);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* === UNIQUENESS === */
+.unique { padding: 100px 0; }
+.unique-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.unique-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-style: italic;
+  line-height: 1.35;
+  color: var(--text);
+  position: relative;
+  padding-left: 28px;
+}
+.unique-quote::before {
+  content: '';
+  position: absolute; left: 0; top: 4px; bottom: 4px;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--amber), transparent);
+  border-radius: 2px;
+}
+.unique-text p {
+  color: var(--text2);
+  margin-bottom: 16px;
+  line-height: 1.75;
+}
+.unique-text strong { color: var(--text); }
+
+/* === AUDIENCE === */
+.audience { padding: 100px 0; background: var(--bg2); }
+.audience-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 52px;
+}
+.audience-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 28px;
+  transition: border-color .25s;
+}
+.audience-card:hover { border-color: var(--border2); }
+.audience-emoji { font-size: 2rem; margin-bottom: 14px; display: block; }
+.audience-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.audience-desc { font-size: .9rem; color: var(--text2); line-height: 1.6; }
+
+/* === HOW IT WORKS === */
+.howto { padding: 100px 0; }
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2px;
+  margin-top: 52px;
+  position: relative;
+}
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 40px; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border2) 20%, var(--border2) 80%, transparent);
+}
+.step {
+  background: var(--bg);
+  padding: 36px 28px 28px;
+  position: relative;
+  z-index: 1;
+}
+.step-num {
+  width: 48px; height: 48px;
+  background: var(--amber);
+  color: #000;
+  font-weight: 800;
+  font-size: 1.1rem;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.step-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.step-desc { font-size: .9rem; color: var(--text2); line-height: 1.65; }
+
+/* === TOOLS === */
+.tools { padding: 80px 0; background: var(--bg2); }
+.tools-sub { font-size: .95rem; color: var(--text2); margin: 8px 0 36px; }
+.badges {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.badge {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  font-size: .85rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  transition: border-color .2s, color .2s;
+}
+.badge:hover { border-color: var(--amber); color: var(--amber); }
+.tools-note {
+  margin-top: 28px;
+  font-size: .9rem;
+  color: var(--text3);
+  max-width: 580px;
+  line-height: 1.6;
+}
+
+/* === TRUST === */
+.trust { padding: 100px 0; }
+.trust-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin-top: 52px;
+}
+.trust-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 28px;
+  transition: border-color .25s;
+}
+.trust-card:hover { border-color: var(--amber-dim); }
+.trust-icon { font-size: 1.8rem; margin-bottom: 14px; display: block; }
+.trust-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+.trust-desc { font-size: .88rem; color: var(--text2); line-height: 1.6; }
+
+/* === FAQ === */
+.faq { padding: 100px 0; background: var(--bg2); }
+.faq-list {
+  margin-top: 48px;
+  max-width: 760px;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-q {
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  padding: 22px 0;
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  transition: color .2s;
+}
+.faq-q:hover { color: var(--amber); }
+.faq-arrow {
+  font-size: 1.2rem;
+  transition: transform .3s;
+  flex-shrink: 0;
+  color: var(--text3);
+}
+.faq-item.open .faq-arrow { transform: rotate(45deg); color: var(--amber); }
+.faq-a {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .4s ease, padding .3s;
+}
+.faq-item.open .faq-a { max-height: 300px; }
+.faq-a-inner {
+  padding: 0 0 22px;
+  color: var(--text2);
+  font-size: .95rem;
+  line-height: 1.7;
+}
+
+/* === CTA FINAL === */
+.cta-section {
+  padding: 120px 0;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+.cta-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(245,166,35,0.07) 0%, transparent 70%);
+}
+.cta-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 18px;
+  position: relative;
+}
+.cta-section p {
+  color: var(--text2);
+  font-size: 1.05rem;
+  margin-bottom: 40px;
+  max-width: 500px;
+  margin-left: auto; margin-right: auto;
+  position: relative;
+}
+.cta-btns {
+  display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+  position: relative;
+}
+.cta-note {
+  margin-top: 20px;
+  font-size: .82rem;
+  color: var(--text3);
+  position: relative;
+}
+
+/* === FOOTER === */
+footer {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  padding: 40px 0 32px;
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+.footer-brand .logo { font-size: 1.1rem; }
+.footer-brand p {
+  font-size: .82rem;
+  color: var(--text3);
+  margin-top: 6px;
+}
+.footer-contacts {
+  display: flex; flex-direction: column; gap: 8px;
+}
+.footer-contact {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .9rem;
+  color: var(--text2);
+}
+.footer-contact a { color: var(--text); transition: color .2s; }
+.footer-contact a:hover { color: var(--amber); text-decoration: none; }
+.footer-legal {
+  font-size: .78rem;
+  color: var(--text3);
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.consent-manage-link {
+  font-size: .78rem;
+  color: var(--text3);
+}
+.consent-manage-link:hover { color: var(--amber); }
+
+/* === HERO COMPLIANCE STRIP === */
+.hero-compliance {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  animation: fadeUp .9s ease both .5s;
+}
+.hc-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(62,207,142,0.07);
+  border: 1px solid rgba(62,207,142,0.2);
+  border-radius: 100px;
+  padding: 5px 12px;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--green);
+  white-space: nowrap;
+}
+.hc-item::before {
+  content: '✓';
+  font-size: .75rem;
+}
+@media (max-width: 768px) {
+  .hero-compliance { justify-content: center; }
+}
+
+/* === 152-FZ SHIELD BANNER === */
+.fz-shield-banner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, rgba(245,166,35,0.06), rgba(245,166,35,0.02));
+  border: 1px solid rgba(245,166,35,0.25);
+  border-left: 4px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 32px;
+}
+.fz-shield-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 8px rgba(245,166,35,0.4));
+}
+.fz-shield-text strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.fz-shield-text span {
+  font-size: .85rem;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+/* === COOKIE BANNER === */
+#cookie-banner {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 9000;
+  background: rgba(18,18,24,0.97);
+  border-top: 1px solid rgba(245,166,35,0.22);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 -12px 48px rgba(0,0,0,0.55);
+  transform: translateY(100%);
+  transition: transform .45s cubic-bezier(.16,1,.3,1);
+}
+#cookie-banner.cb-visible { transform: translateY(0); }
+.cb-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 22px 24px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.cb-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  flex: 1;
+  min-width: 200px;
+}
+.cb-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 1px; }
+.cb-title {
+  display: block;
+  font-weight: 700;
+  font-size: .95rem;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.cb-desc {
+  font-size: .81rem;
+  color: var(--text2);
+  line-height: 1.5;
+  margin: 0;
+}
+.cb-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+/* Custom checkbox */
+.cb-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.cb-option input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+  pointer-events: none;
+}
+.cb-box {
+  width: 20px; height: 20px;
+  min-width: 20px;
+  border: 2px solid var(--border2);
+  border-radius: 4px;
+  background: var(--surface);
+  transition: border-color .2s, background .2s;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cb-option input:checked ~ .cb-box {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+.cb-option input:checked ~ .cb-box::after {
+  content: '';
+  display: block;
+  width: 5px; height: 9px;
+  border: 2px solid #000;
+  border-top: none; border-left: none;
+  transform: rotate(45deg) translateY(-1px);
+}
+.cb-option:focus-within .cb-box {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+.cb-label {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.cb-label-main {
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.cb-label-link {
+  font-size: .74rem;
+  color: var(--text3);
+  transition: color .2s;
+}
+.cb-label-link:hover { color: var(--amber); }
+/* Кнопки одинакового визуального веса — требование 152-ФЗ */
+.cb-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.cb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: .85rem;
+  font-weight: 600;
+  padding: 10px 22px;
+  border-radius: 100px;
+  cursor: pointer;
+  white-space: nowrap;
+  min-width: 148px;
+  transition: border-color .2s, background .2s, color .2s;
+}
+.cb-btn:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: rgba(245,166,35,0.06);
+}
+@media (max-width: 640px) {
+  .cb-inner { flex-direction: column; gap: 18px; padding: 18px 16px; }
+  .cb-actions { width: 100%; }
+  .cb-btn { flex: 1; min-width: 0; }
+}
+
+/* === SCROLL TO TOP === */
+#scrollTop {
+  position: fixed; bottom: 28px; right: 28px; z-index: 200;
+  width: 44px; height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  color: var(--text2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s, transform .3s, border-color .2s;
+  font-size: 1.1rem;
+}
+#scrollTop.visible { opacity: 1; pointer-events: auto; }
+#scrollTop:hover { border-color: var(--amber); color: var(--amber); transform: translateY(-3px); }
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .unique-inner { grid-template-columns: 1fr; gap: 36px; }
+  .steps::before { display: none; }
+  .footer-inner { flex-direction: column; }
+  .hero h1 { font-size: 2.2rem; }
+  .pain-card { padding: 24px; }
+  .fz-docs { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <div class="logo">Марина <span>Кирина</span></div>
+      <a href="https://t.me/your_username" target="_blank" rel="noopener" class="nav-cta">Написать в Telegram →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-layout">
+      <div class="hero-text">
+        <div class="hero-badge">Сайты · Боты · Автоматизации · 152-ФЗ</div>
+        <h1>Сайт за разумные деньги —<br>и <em>без штрафа</em><br>от Роскомнадзора</h1>
+        <p class="hero-sub">
+          Привет! Я Марина Кирина — создаю сайты, Telegram-ботов и автоматизации.
+          В каждый проект сразу включено соответствие 152-ФЗ — без доплат и доработок.
+        </p>
+        <div class="hero-alert">
+          <span class="hero-alert-icon">⚠️</span>
+          <span>С 30 мая 2025 года штрафы за нарушения на сайтах выросли до <strong>300 000 — 18 000 000 ₽</strong>. Большинство разработчиков об этом не думают. Я думаю — всегда.</span>
+        </div>
+        <div class="hero-btns">
+          <a href="https://t.me/your_username" target="_blank" rel="noopener" class="btn-primary">
+            ✈ Написать в Telegram
+          </a>
+          <a href="mailto:marina@example.com" class="btn-ghost">
+            ✉ Написать на e-mail
+          </a>
+        </div>
+        <div class="hero-compliance">
+          <span class="hc-item">Политика конфиденциальности</span>
+          <span class="hc-item">Форма согласия на ПДн</span>
+          <span class="hc-item">Уведомление в РКН</span>
+          <span class="hc-item">Самохостинг шрифтов</span>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <img src="photo.png" alt="Марина Кирина">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Проблема</div>
+      <h2 class="section-title">Почему у большинства сайтов<br>проблемы с законом</h2>
+      <p class="section-sub">И их хозяева об этом даже не догадываются — до первой проверки.</p>
+    </div>
+
+    <div class="pain-card reveal">
+      <p class="pain-intro">
+        Представьте: вы заказали сайт. Красивый, быстрый, с формой заявки.
+        Клиенты оставляют телефоны и имена. Всё работает. Вы довольны.<br><br>
+        А потом — письмо от Роскомнадзора. Потому что на вашем сайте нет ни одного
+        обязательного документа по 152-ФЗ. И каждый пропущенный пункт — это отдельный штраф.
+      </p>
+
+      <div class="fines-grid">
+        <div class="fine-item">
+          <span class="fine-amount">300 000 ₽</span>
+          <span class="fine-desc">Нет политики конфиденциальности или уведомления в РКН</span>
+        </div>
+        <div class="fine-item">
+          <span class="fine-amount">700 000 ₽</span>
+          <span class="fine-desc">Форма без правильного согласия на обработку данных</span>
+        </div>
+        <div class="fine-item">
+          <span class="fine-amount">6 000 000 ₽</span>
+          <span class="fine-desc">Подключён Google Analytics, Google Fonts или зарубежные CDN</span>
+        </div>
+        <div class="fine-item">
+          <span class="fine-amount">18 000 000 ₽</span>
+          <span class="fine-desc">Повторное нарушение — хранение данных на зарубежных серверах</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <p style="color:var(--text2); margin-bottom: 20px; font-size:.95rem;">
+        Типичные ошибки, которые делают 9 из 10 разработчиков:
+      </p>
+      <ul class="errors-list">
+        <li>Политика конфиденциальности скопирована из интернета — не соответствует вашему сайту</li>
+        <li>Форма не имеет галочки согласия на обработку персональных данных</li>
+        <li>Нет уведомления в Роскомнадзор о сборе данных</li>
+        <li>Подключён Google Analytics или Google Fonts — нарушение с 01.07.2025</li>
+        <li>Нет договора оферты при продаже услуг онлайн</li>
+        <li>Одна галочка на все согласия — нарушение с 01.09.2025</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Услуги</div>
+      <h2 class="section-title">Что я делаю</h2>
+      <p class="section-sub">Всё, что нужно вашему проекту в интернете — и всё по закону.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <span class="service-icon">🌐</span>
+        <div class="service-name">Сайты и лендинги</div>
+        <p class="service-desc">Одностраничный лендинг, сайт-визитка, страница для записи или заявки. Быстро, современно, адаптивно под любой экран.</p>
+        <span class="service-tag">+ 152-ФЗ включён</span>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">🤖</span>
+        <div class="service-name">Telegram-боты</div>
+        <p class="service-desc">Бот для приёма заявок, записи клиентов, ответов на FAQ. Работает вместо менеджера — 24 часа в сутки, 7 дней в неделю.</p>
+        <span class="service-tag">AI tools</span>
+      </div>
+      <div class="service-card reveal">
+        <span class="service-icon">⚙️</span>
+        <div class="service-name">Автоматизации</div>
+        <p class="service-desc">Убираю рутину: автоматические уведомления, сбор данных в таблицу, связка форм с CRM или мессенджерами через n8n.</p>
+        <span class="service-tag">n8n · API</span>
+      </div>
+    </div>
+
+    <div class="fz-docs reveal">
+      <h3>🛡️ Соответствие 152-ФЗ — в каждом проекте</h3>
+      <p>Это моя особенность — то, чего не предлагают обычные разработчики. Включено без доплаты:</p>
+      <div class="fz-items">
+        <div class="fz-item">Политика конфиденциальности — под ваш конкретный сайт, не шаблон из интернета</div>
+        <div class="fz-item">Форма согласия на обработку ПДн — раздельные галочки, соответствие ст. 9</div>
+        <div class="fz-item">Уведомление в Роскомнадзор — помогу подготовить и подать</div>
+        <div class="fz-item">Самохостинг шрифтов и ресурсов — никаких Google Fonts, Cloudflare CDN</div>
+        <div class="fz-item">Договор оферты — для тех, кто продаёт услуги или товары онлайн</div>
+        <div class="fz-item">Аудит существующего сайта — нахожу нарушения и объясняю, как исправить</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNIQUENESS -->
+<section class="unique">
+  <div class="container">
+    <div class="unique-inner">
+      <div class="unique-quote reveal">
+        «Сайт без нарушений — это не дороже. Это просто умнее.»
+      </div>
+      <div class="unique-text reveal">
+        <div class="section-label">Моё главное отличие</div>
+        <div class="fz-shield-banner">
+          <div class="fz-shield-icon">🛡️</div>
+          <div class="fz-shield-text">
+            <strong>152-ФЗ — не опция, а стандарт</strong>
+            <span>Каждый проект сдаётся с полным пакетом документов. Это не доплата — это моя работа.</span>
+          </div>
+        </div>
+        <p>Большинство разработчиков думают: <strong>«Сайт работает? Значит, всё хорошо».</strong></p>
+        <p>Я думаю иначе. Сайт — это ещё и юридическая ответственность владельца.
+        Форма без согласия на ПДн, Google Fonts, отсутствие политики — каждый пункт это отдельный штраф.</p>
+        <p>Я знаю 152-ФЗ. Знаю, где прячутся нарушения. Знаю, на что смотрит
+        Роскомнадзор при проверке. И сдаю проекты так, чтобы эта проверка вас не пугала — никогда.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AUDIENCE -->
+<section class="audience">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Кто мои клиенты</div>
+      <h2 class="section-title">Узнаёте себя?</h2>
+      <p class="section-sub">Мои клиенты — люди, которым нужен не просто «сайт», а рабочий инструмент.</p>
+    </div>
+    <div class="audience-cards">
+      <div class="audience-card reveal">
+        <span class="audience-emoji">🧑‍💼</span>
+        <div class="audience-title">Самозанятые и фрилансеры</div>
+        <p class="audience-desc">Психологи, коучи, репетиторы, нутрициологи, мастера. Вы принимаете заявки онлайн — и вам нужно делать это законно. Форма «Оставьте телефон» без согласия — уже нарушение 152-ФЗ.</p>
+      </div>
+      <div class="audience-card reveal">
+        <span class="audience-emoji">🏪</span>
+        <div class="audience-title">Малый бизнес</div>
+        <p class="audience-desc">Кафе, салоны красоты, мастерские, локальные магазины. Нужен сайт «чтобы был» или лендинг «чтобы писали». Я сделаю быстро, недорого — и без юридических сюрпризов.</p>
+      </div>
+      <div class="audience-card reveal">
+        <span class="audience-emoji">🚀</span>
+        <div class="audience-title">Стартапы и онлайн-проекты</div>
+        <p class="audience-desc">Нужен MVP быстро? Лендинг для проверки гипотезы? Простой бот для автоматизации первых продаж? Помогу запуститься без лишних вложений.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="howto">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Процесс</div>
+      <h2 class="section-title">Как мы работаем</h2>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-title">Вы пишете мне</div>
+        <p class="step-desc">Рассказываете, что нужно. Я задаю вопросы, чтобы понять задачу. Первая консультация — бесплатно, без давления и предоплаты за разговор.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-title">Я делаю</div>
+        <p class="step-desc">Быстро, с учётом 152-ФЗ. Объясняю каждый шаг понятным языком. Показываю работу в процессе — вы видите, что происходит.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-title">Вы получаете</div>
+        <p class="step-desc">Готовый сайт, бот или автоматизацию + все необходимые документы по персданным. Сдаю с пояснением, что и зачем. Правки — обсудим.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section class="tools">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Инструменты</div>
+      <h2 class="section-title" style="margin-bottom:4px;">Чем я работаю</h2>
+      <p class="tools-sub">Современный стек + ИИ-инструменты — быстрее, чем классическая разработка.</p>
+      <div class="badges">
+        <span class="badge">Claude</span>
+        <span class="badge">Claude Code</span>
+        <span class="badge">ChatGPT</span>
+        <span class="badge">Gemini</span>
+        <span class="badge">Cursor</span>
+        <span class="badge">n8n</span>
+        <span class="badge">HTML / CSS / JS</span>
+        <span class="badge">Telegram Bots</span>
+        <span class="badge">AI tools</span>
+      </div>
+      <p class="tools-note">Быстро, честно, по закону. Никаких зарубежных CDN, никаких Google Fonts — всё самохостинг, всё в соответствии с 152-ФЗ.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Доверие</div>
+      <h2 class="section-title">Почему можно доверять<br>человеку без портфолио?</h2>
+      <p class="section-sub">Да, я только начинаю — и я скажу об этом прямо. Вот что я предлагаю вместо отзывов:</p>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-card reveal">
+        <span class="trust-icon">🔍</span>
+        <div class="trust-title">Прозрачность процесса</div>
+        <p class="trust-desc">Показываю работу до сдачи. Вы видите, что происходит, на каждом шаге. Никаких сюрпризов в финале.</p>
+      </div>
+      <div class="trust-card reveal">
+        <span class="trust-icon">🎁</span>
+        <div class="trust-title">Бесплатный аудит</div>
+        <p class="trust-desc">Уже есть сайт? Проверю его на нарушения 152-ФЗ бесплатно — и честно скажу, что не так, даже если вы ничего не закажете.</p>
+      </div>
+      <div class="trust-card reveal">
+        <span class="trust-icon">📞</span>
+        <div class="trust-title">Сначала разговор</div>
+        <p class="trust-desc">Обсудим задачу до согласования. Без давления, без предоплаты за воздух. Если не подхожу — честно скажу.</p>
+      </div>
+      <div class="trust-card reveal">
+        <span class="trust-icon">💬</span>
+        <div class="trust-title">Цена — договорная</div>
+        <p class="trust-desc">Не прячу ценник за «узнайте у менеджера». Обсудим открыто, по задаче. Без «от 50 000» в воздух.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Часто спрашивают</h2>
+    </div>
+    <div class="faq-list reveal">
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Сколько стоит?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Цена договорная — зависит от задачи. Напишите, расскажите, что нужно — и я скажу конкретную цифру. Без «от 10 000» в пустоту.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Как долго делается сайт?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Простой лендинг — 2–5 дней. Telegram-бот — 3–7 дней. Автоматизация — зависит от сложности. Сроки обсуждаем до начала работы, и я их держу.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Нужна только политика конфиденциальности — это отдельная услуга?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Если заказываете сайт — документы по 152-ФЗ включены. Если нужен только аудит существующего сайта или только документы — это отдельная услуга, недорого.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Я не разбираюсь в технологиях. Это проблема?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Это норма. Я объясняю всё на человеческом языке. Вам не нужно знать, что такое хостинг или API — это моя работа.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Что если результат мне не понравится?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Обсудим правки. Я не сдаю работу «как есть» и не исчезаю. Сдача — это когда вы довольны, а не когда я закончила.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          Как убедиться, что сайт действительно соответствует 152-ФЗ?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a" role="region">
+          <div class="faq-a-inner">Я сдаю не просто сайт, а пакет: политика конфиденциальности, форма согласия с раздельными галочками, самохостинг ресурсов, помощь с уведомлением в РКН. Каждый пункт объясняю — почему он нужен и что будет, если его нет. Если уже есть сайт — проверю бесплатно и покажу конкретные нарушения.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="container">
+    <h2 class="reveal">Начнём?</h2>
+    <p class="reveal">
+      Напишите мне — и через 10 минут у вас будет понимание,
+      сколько стоит ваша задача и когда её можно сделать.
+    </p>
+    <div class="cta-btns reveal">
+      <a href="https://t.me/your_username" target="_blank" rel="noopener" class="btn-primary">
+        ✈ Написать в Telegram
+      </a>
+      <a href="mailto:marina@example.com" class="btn-ghost">
+        ✉ Написать на e-mail
+      </a>
+    </div>
+    <p class="cta-note reveal">Первая консультация бесплатна · Без давления · Без предоплаты за разговор</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">Марина <span>Кирина</span></div>
+        <p>Сайты · Боты · Автоматизации · 152-ФЗ</p>
+      </div>
+      <div class="footer-contacts">
+        <div class="footer-contact">
+          <span>✈</span>
+          <span>Telegram: <a href="https://t.me/your_username" target="_blank" rel="noopener">@your_username</a></span>
+        </div>
+        <div class="footer-contact">
+          <span>✉</span>
+          <span>E-mail: <a href="mailto:marina@example.com">marina@example.com</a></span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>© 2025 Марина Кирина. Все права защищены.</span>
+      <!-- Withdraw consent link — required by 152-FZ ст. 9 ч. 2: must be ≤2 clicks from any page -->
+      <a href="/consent" class="consent-manage-link">Управление согласиями на обработку данных</a>
+    </div>
+  </div>
+</footer>
+
+<!-- COOKIE BANNER — 152-ФЗ compliant: all toggles OFF by default, equal-weight buttons -->
+<div role="dialog" aria-modal="true" aria-label="Настройки cookie" id="cookie-banner">
+  <div class="cb-inner">
+    <div class="cb-header">
+      <span class="cb-icon">🍪</span>
+      <div>
+        <strong class="cb-title">Мы используем cookie</strong>
+        <p class="cb-desc">Необходимые cookie уже активны — они нужны для работы сайта.<br>Вы можете разрешить дополнительные категории:</p>
+      </div>
+    </div>
+    <div class="cb-options">
+      <!-- unchecked по умолчанию — требование ст. 9 ч. 1 152-ФЗ -->
+      <label class="cb-option">
+        <input type="checkbox" id="consent-analytics">
+        <span class="cb-box"></span>
+        <span class="cb-label">
+          <span class="cb-label-main">Аналитические cookie</span>
+          <a href="/privacy" target="_blank" rel="noopener" class="cb-label-link">Политика конфиденциальности ↗</a>
+        </span>
+      </label>
+      <label class="cb-option">
+        <input type="checkbox" id="consent-marketing">
+        <span class="cb-box"></span>
+        <span class="cb-label">
+          <span class="cb-label-main">Маркетинговые cookie</span>
+          <a href="/privacy" target="_blank" rel="noopener" class="cb-label-link">Политика конфиденциальности ↗</a>
+        </span>
+      </label>
+    </div>
+    <!-- Одинаковый визуальный вес — требование 152-ФЗ, ст. 9 -->
+    <div class="cb-actions">
+      <button class="cb-btn" id="btn-reject">Отклонить всё</button>
+      <button class="cb-btn" id="btn-accept">Принять выбранное</button>
+    </div>
+  </div>
+</div>
+
+<!-- SCROLL TO TOP -->
+<button id="scrollTop" aria-label="Наверх" title="Наверх">↑</button>
+
+<script>
+/* ===== NAV SCROLL ===== */
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+}, { passive: true });
+
+document.getElementById('scrollTop').addEventListener('click', () =>
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+);
+
+/* ===== REVEAL ON SCROLL ===== */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      entry.target.style.transitionDelay = (i % 4) * 80 + 'ms';
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ===== FAQ ACCORDION ===== */
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+      i.classList.remove('open');
+      i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
+
+/* ===== COOKIE BANNER — 152-ФЗ COMPLIANT ===== */
+(function () {
+  const STORAGE_KEY = 'marina_consent_v1';
+  const banner      = document.getElementById('cookie-banner');
+
+  // Если выбор уже сохранён — применить и баннер не показывать
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored) {
+    try {
+      const c = JSON.parse(stored);
+      if (c.analytics) loadAnalytics();
+      if (c.marketing) loadMarketing();
+    } catch (e) {}
+    return;
+  }
+
+  // Показать баннер после первого рендера
+  requestAnimationFrame(function () {
+    setTimeout(function () { banner.classList.add('cb-visible'); }, 250);
+  });
+
+  function hideBanner() {
+    banner.classList.remove('cb-visible');
+    // Убрать из DOM после завершения анимации
+    setTimeout(function () { banner.setAttribute('hidden', ''); }, 460);
+  }
+
+  // «Отклонить всё» — сохранить false/false, не загружать ничего
+  document.getElementById('btn-reject').addEventListener('click', function () {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      analytics: false, marketing: false, ts: Date.now()
+    }));
+    hideBanner();
+  });
+
+  // «Принять выбранное» — читать чекбоксы
+  document.getElementById('btn-accept').addEventListener('click', function () {
+    const analytics = document.getElementById('consent-analytics').checked;
+    const marketing = document.getElementById('consent-marketing').checked;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      analytics: analytics, marketing: marketing, ts: Date.now()
+    }));
+    hideBanner();
+    if (analytics) loadAnalytics();
+    if (marketing) loadMarketing();
+  });
+
+  /* ── ДИНАМИЧЕСКИЙ INJECT — скрипты грузятся ТОЛЬКО после согласия.
+     Статических <script> тегов в <head> нет — требование 152-ФЗ. ── */
+
+  function loadAnalytics() {
+    // Яндекс.Метрика — российский хостинг, соответствует 152-ФЗ
+    // Раскомментировать и заменить XXXXXXXX на номер счётчика:
+    /*
+    var s = document.createElement('script');
+    s.src   = 'https://mc.yandex.ru/metrika/tag.js';
+    s.async = true;
+    s.onload = function () {
+      window.ym && window.ym(XXXXXXXX, 'init', {
+        clickmap: true, trackLinks: true, accurateTrackBounce: true
+      });
+    };
+    document.head.appendChild(s);
+    */
+  }
+
+  function loadMarketing() {
+    // Маркетинговые скрипты — только российские (VK Pixel и т.п.)
+    // Загружаются здесь, ТОЛЬКО если пользователь дал согласие.
+  }
+}());
+</script>
+
+</body>
+</html>

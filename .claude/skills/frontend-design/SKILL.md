@@ -1,6 +1,11 @@
 ---
 name: frontend-design
-description: Create distinctive, production-grade frontend interfaces with high design quality. Use this skill when the user asks to build web components, pages, or applications. Generates creative, polished code that avoids generic AI aesthetics.
+description: >
+  Use when building any frontend UI for Russian audience: web pages, components,
+  forms, or apps. Enforces 152-FZ design compliance (consent checkboxes, cookie banner,
+  self-hosted fonts, no foreign CDNs) AND generates visually distinctive,
+  production-grade interfaces that avoid generic AI aesthetics.
+  Triggers on: "сделай форму", "создай страницу", "добавь cookie banner", "верстка".
 license: Complete terms in LICENSE.txt
 ---
 

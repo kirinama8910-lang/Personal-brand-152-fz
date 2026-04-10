@@ -9,8 +9,63 @@
 <meta property="og:description" content="Сайты, Telegram-боты, автоматизации. Каждый проект сразу по закону — без штрафов до 18 млн ₽ от Роскомнадзора.">
 <meta property="og:type" content="website">
 
-<!-- SELF-HOSTED FONTS — 152-ФЗ compliant: no Google Fonts CDN -->
-<!-- Fallback stack only; Claude Code operator must self-host actual font files -->
+<!-- SELF-HOSTED FONTS — 152-ФЗ: шрифты раздаются с собственного сервера,
+     никаких запросов к fonts.googleapis.com / fonts.gstatic.com.
+     Файлы woff2 лежат в /fonts/ — инструкция по скачиванию: fonts/README.md -->
+<style>
+  /* === PLAYFAIR DISPLAY — заголовки === */
+  @font-face {
+    font-family: 'Playfair Display';
+    src: url('/fonts/playfair-display-400.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Playfair Display';
+    src: url('/fonts/playfair-display-400-italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Playfair Display';
+    src: url('/fonts/playfair-display-700.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'Playfair Display';
+    src: url('/fonts/playfair-display-700-italic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+
+  /* === DM SANS — основной текст === */
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans-400.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans-500.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans-700.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
 <style>
 /* === DESIGN SYSTEM === */
 :root {
@@ -1022,6 +1077,195 @@ footer {
 .audience-cards {
   perspective: 1000px;
 }
+
+/* === CONTACT FORM SECTION === */
+.contact { padding: 100px 0; }
+.contact-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-top: 52px;
+}
+.contact-aside p {
+  color: var(--text2);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  font-size: .95rem;
+}
+.contact-aside-item {
+  display: flex; align-items: center; gap: 12px;
+  font-size: .9rem;
+  color: var(--text2);
+  margin-bottom: 12px;
+}
+.contact-aside-item a { color: var(--amber); }
+.contact-aside-icon {
+  width: 36px; height: 36px;
+  background: var(--amber-glow);
+  border: 1px solid rgba(245,166,35,0.2);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+/* Карточка формы */
+.contact-form-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 36px;
+}
+
+/* Поля ввода */
+.cf-group {
+  margin-bottom: 18px;
+}
+.cf-group label {
+  display: block;
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--text2);
+  margin-bottom: 7px;
+  letter-spacing: .03em;
+}
+.cf-group input {
+  width: 100%;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: .95rem;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+  -webkit-appearance: none;
+}
+.cf-group input::placeholder { color: var(--text3); }
+.cf-group input:focus {
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(245,166,35,0.12);
+}
+.cf-group input.cf-error { border-color: var(--red); }
+.cf-error-msg {
+  font-size: .78rem;
+  color: var(--red);
+  margin-top: 5px;
+  display: none;
+}
+.cf-group.has-error .cf-error-msg { display: block; }
+
+/* Блок согласий */
+.cf-consents {
+  margin: 24px 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+/* Каждый чекбокс — отдельный документ согласия (ст. 15 152-ФЗ) */
+.cf-consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+.cf-consent-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+}
+.cf-checkbox-box {
+  width: 24px; height: 24px;
+  min-width: 24px;
+  border: 2px solid var(--border2);
+  border-radius: 5px;
+  background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .2s, background .2s;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.cf-consent-label input:checked ~ .cf-checkbox-box {
+  background: var(--amber);
+  border-color: var(--amber);
+}
+.cf-consent-label input:checked ~ .cf-checkbox-box::after {
+  content: '';
+  display: block;
+  width: 5px; height: 9px;
+  border: 2px solid #000;
+  border-top: none; border-left: none;
+  transform: rotate(45deg) translateY(-1px);
+}
+.cf-consent-label:focus-within .cf-checkbox-box {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+.cf-consent-text {
+  font-size: .85rem;
+  color: var(--text2);
+  line-height: 1.55;
+}
+.cf-consent-text a {
+  color: var(--amber);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cf-consent-note {
+  font-size: .76rem;
+  color: var(--text3);
+  margin-top: 2px;
+}
+
+/* Кнопка отправки */
+.cf-submit {
+  width: 100%;
+  background: var(--amber);
+  color: #000;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 15px 24px;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, opacity .2s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.cf-submit:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(245,166,35,0.4);
+}
+/* Заблокирована до согласия — требование ст. 9 ч. 1 152-ФЗ */
+.cf-submit:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* Сообщение об успехе */
+.cf-success {
+  display: none;
+  text-align: center;
+  padding: 32px 0 8px;
+}
+.cf-success-icon { font-size: 2.4rem; margin-bottom: 12px; }
+.cf-success h3 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+  color: var(--green);
+}
+.cf-success p { font-size: .9rem; color: var(--text2); }
+
+@media (max-width: 768px) {
+  .contact-wrap {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
 </style>
 </head>
 <body>
@@ -1383,6 +1627,110 @@ footer {
   </div>
 </section>
 
+<!-- CONTACT FORM -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-label">Обратная связь</div>
+      <h2 class="section-title">Напишите мне</h2>
+      <p class="section-sub">Расскажите о задаче — отвечу в течение дня и назову конкретную цену.</p>
+    </div>
+    <div class="contact-wrap">
+
+      <!-- Левая колонка: контакты -->
+      <div class="contact-aside reveal">
+        <p>Предпочитаете мессенджер? Напишите напрямую — без форм и ожиданий.</p>
+        <div class="contact-aside-item">
+          <span class="contact-aside-icon">✈</span>
+          <span>Telegram: <a href="https://t.me/your_username" target="_blank" rel="noopener">@your_username</a></span>
+        </div>
+        <div class="contact-aside-item">
+          <span class="contact-aside-icon">✉</span>
+          <span>E-mail: <a href="mailto:marina@example.com">marina@example.com</a></span>
+        </div>
+        <p style="margin-top:28px; font-size:.85rem; color:var(--text3); line-height:1.6;">
+          Данные из формы используются только для ответа на ваш запрос
+          и не передаются третьим лицам. Обработка — согласно
+          <a href="/privacy" style="color:var(--amber);">Политике конфиденциальности</a>.
+        </p>
+      </div>
+
+      <!-- Правая колонка: форма -->
+      <div class="contact-form-card reveal">
+
+        <!-- Форма обратной связи — 152-ФЗ: отдельные чекбоксы на каждую цель,
+             кнопка заблокирована до согласия на ПДн (ст. 9 ч. 1 152-ФЗ) -->
+        <form id="contact-form" novalidate>
+
+          <div class="cf-group" id="cf-group-name">
+            <label for="cf-name">Имя *</label>
+            <input type="text" id="cf-name" name="name"
+                   required autocomplete="given-name"
+                   placeholder="Как к вам обращаться?">
+            <div class="cf-error-msg">Пожалуйста, введите ваше имя</div>
+          </div>
+
+          <div class="cf-group" id="cf-group-phone">
+            <label for="cf-phone">Телефон *</label>
+            <input type="tel" id="cf-phone" name="phone"
+                   required autocomplete="tel"
+                   placeholder="+7 (___) ___-__-__">
+            <div class="cf-error-msg">Пожалуйста, введите телефон</div>
+          </div>
+
+          <div class="cf-group" id="cf-group-email">
+            <label for="cf-email">E-mail *</label>
+            <input type="email" id="cf-email" name="email"
+                   required autocomplete="email"
+                   placeholder="example@mail.ru">
+            <div class="cf-error-msg">Пожалуйста, введите корректный e-mail</div>
+          </div>
+
+          <div class="cf-consents">
+            <!-- Чекбокс 1: согласие на обработку ПДн (обязательный) —
+                 НЕ предустановлен, требование ст. 9 ч. 1 152-ФЗ -->
+            <label class="cf-consent-label">
+              <input type="checkbox" id="cf-consent-pd" name="consent_pd" required>
+              <span class="cf-checkbox-box" aria-hidden="true"></span>
+              <span class="cf-consent-text">
+                Даю <a href="/consent" target="_blank" rel="noopener">согласие на обработку
+                персональных данных</a> в соответствии с
+                <a href="/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a> *
+                <span class="cf-consent-note">Обязательное условие для отправки заявки</span>
+              </span>
+            </label>
+
+            <!-- Чекбокс 2: согласие на маркетинговые рассылки (необязательный) —
+                 отдельная цель, отдельный документ (ст. 15 152-ФЗ, ст. 18 ФЗ-38) -->
+            <label class="cf-consent-label">
+              <input type="checkbox" id="cf-consent-marketing" name="consent_marketing">
+              <span class="cf-checkbox-box" aria-hidden="true"></span>
+              <span class="cf-consent-text">
+                Соглашаюсь получать полезные материалы и предложения по e-mail
+                <span class="cf-consent-note">Необязательно · Отписаться можно в любой момент</span>
+              </span>
+            </label>
+          </div>
+
+          <!-- Кнопка disabled до согласия на ПДн — требование ст. 9 ч. 1 152-ФЗ -->
+          <button type="submit" id="cf-submit" class="cf-submit" disabled>
+            Отправить заявку
+          </button>
+
+        </form>
+
+        <!-- Экран успешной отправки -->
+        <div class="cf-success" id="cf-success">
+          <div class="cf-success-icon">✓</div>
+          <h3>Заявка отправлена!</h3>
+          <p>Отвечу в течение дня. Если срочно — напишите в Telegram.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA FINAL -->
 <section class="cta-section">
   <div class="cta-bg"></div>
@@ -1573,6 +1921,83 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     }
   });
 });
+
+/* ===== CONTACT FORM — 152-ФЗ COMPLIANT ===== */
+(function () {
+  const form        = document.getElementById('contact-form');
+  const pdCheckbox  = document.getElementById('cf-consent-pd');
+  const submitBtn   = document.getElementById('cf-submit');
+
+  // Разблокировать кнопку только при согласии на ПДн (ст. 9 ч. 1 152-ФЗ)
+  pdCheckbox.addEventListener('change', function () {
+    submitBtn.disabled = !pdCheckbox.checked;
+  });
+
+  // Валидация поля при потере фокуса
+  function validateField(input, groupId, check) {
+    const group = document.getElementById(groupId);
+    const ok = check(input.value.trim());
+    group.classList.toggle('has-error', !ok);
+    input.classList.toggle('cf-error', !ok);
+    return ok;
+  }
+
+  document.getElementById('cf-name').addEventListener('blur', function () {
+    validateField(this, 'cf-group-name', function (v) { return v.length >= 2; });
+  });
+  document.getElementById('cf-phone').addEventListener('blur', function () {
+    validateField(this, 'cf-group-phone', function (v) { return v.replace(/\D/g, '').length >= 10; });
+  });
+  document.getElementById('cf-email').addEventListener('blur', function () {
+    validateField(this, 'cf-group-email', function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // Двойная проверка согласия на стороне клиента
+    if (!pdCheckbox.checked) return;
+
+    var name  = document.getElementById('cf-name').value.trim();
+    var phone = document.getElementById('cf-phone').value.trim();
+    var email = document.getElementById('cf-email').value.trim();
+
+    var nameOk  = validateField(document.getElementById('cf-name'),  'cf-group-name',  function (v) { return v.length >= 2; });
+    var phoneOk = validateField(document.getElementById('cf-phone'), 'cf-group-phone', function (v) { return v.replace(/\D/g, '').length >= 10; });
+    var emailOk = validateField(document.getElementById('cf-email'), 'cf-group-email', function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); });
+
+    if (!nameOk || !phoneOk || !emailOk) return;
+
+    var marketing = document.getElementById('cf-consent-marketing').checked;
+
+    // Отправка — заменить URL на реальный обработчик формы
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Отправляю…';
+
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: name,
+        phone: phone,
+        email: email,
+        consent_pd: true,
+        consent_marketing: marketing,
+        ts: Date.now()
+      })
+    })
+    .then(function (res) {
+      if (!res.ok) throw new Error('server');
+      form.style.display = 'none';
+      document.getElementById('cf-success').style.display = 'block';
+    })
+    .catch(function () {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Отправить заявку';
+      alert('Не удалось отправить. Попробуйте позже или напишите в Telegram.');
+    });
+  });
+}());
 
 /* ===== COOKIE BANNER — 152-ФЗ COMPLIANT ===== */
 (function () {

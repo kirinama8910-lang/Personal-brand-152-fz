@@ -893,17 +893,19 @@ footer {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 -12px 48px rgba(0,0,0,0.55);
+  /* Блок G: анимация opacity + translateY одновременно */
+  opacity: 0;
   transform: translateY(100%);
-  transition: transform .45s cubic-bezier(.16,1,.3,1);
+  transition: transform .45s cubic-bezier(.16,1,.3,1), opacity .35s ease;
 }
-#cookie-banner.cb-visible { transform: translateY(0); }
+#cookie-banner.cb-visible { transform: translateY(0); opacity: 1; }
 .cb-inner {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 22px 24px;
+  padding: 20px 24px;
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 20px 32px;
   flex-wrap: wrap;
 }
 .cb-header {
@@ -911,15 +913,21 @@ footer {
   align-items: flex-start;
   gap: 12px;
   flex: 1;
-  min-width: 200px;
+  min-width: 220px;
 }
-.cb-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 1px; }
+/* Блок E: SVG-иконка */
+.cb-icon {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  color: var(--amber);
+  margin-top: 1px;
+}
 .cb-title {
   display: block;
   font-weight: 700;
   font-size: .95rem;
   color: var(--text);
-  margin-bottom: 3px;
+  margin-bottom: 4px;
 }
 .cb-desc {
   font-size: .81rem;
@@ -930,7 +938,7 @@ footer {
 .cb-options {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   flex-shrink: 0;
 }
 /* Custom checkbox */
@@ -941,6 +949,8 @@ footer {
   cursor: pointer;
   user-select: none;
 }
+/* Блок B: disabled без opacity, только стиль замка */
+.cb-option--disabled { cursor: default; }
 .cb-option input[type="checkbox"] {
   position: absolute;
   opacity: 0;
@@ -948,8 +958,8 @@ footer {
   pointer-events: none;
 }
 .cb-box {
-  width: 24px; height: 24px;
-  min-width: 24px;
+  width: 22px; height: 22px;
+  min-width: 22px;
   border: 2px solid var(--border2);
   border-radius: 4px;
   background: var(--surface);
@@ -957,17 +967,24 @@ footer {
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.cb-option input:checked ~ .cb-box {
+/* Активный чекбокс — янтарный (только для не-disabled) */
+.cb-option:not(.cb-option--disabled) input:checked ~ .cb-box {
   background: var(--amber);
   border-color: var(--amber);
 }
-.cb-option input:checked ~ .cb-box::after {
+.cb-option:not(.cb-option--disabled) input:checked ~ .cb-box::after {
   content: '';
   display: block;
   width: 5px; height: 9px;
   border: 2px solid #000;
   border-top: none; border-left: none;
   transform: rotate(45deg) translateY(-1px);
+}
+/* Блок B: disabled — серый фон, замок вместо галочки */
+.cb-option--disabled .cb-box {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.35);
 }
 .cb-option:focus-within .cb-box {
   outline: 2px solid var(--amber);
@@ -976,12 +993,19 @@ footer {
 .cb-label {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
 }
 .cb-label-main {
-  font-size: .85rem;
+  font-size: .83rem;
   font-weight: 600;
   color: var(--text);
+  line-height: 1.2;
+}
+/* Блок C: описания под категориями */
+.cb-label-desc {
+  font-size: .71rem;
+  color: var(--text3);
+  line-height: 1.3;
 }
 .cb-label-link {
   font-size: .74rem;
@@ -989,10 +1013,11 @@ footer {
   transition: color .2s;
 }
 .cb-label-link:hover { color: var(--amber); }
-/* Кнопки одинакового визуального веса — требование 152-ФЗ */
+/* Блок D: кнопки — вертикальная колонка, одинаковый вес (152-ФЗ) */
 .cb-actions {
   display: flex;
-  gap: 10px;
+  flex-direction: column;
+  gap: 8px;
   flex-shrink: 0;
 }
 .cb-btn {
@@ -1003,13 +1028,13 @@ footer {
   background: var(--surface);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: .85rem;
+  font-size: .83rem;
   font-weight: 600;
-  padding: 10px 22px;
+  padding: 9px 20px;
   border-radius: 100px;
   cursor: pointer;
   white-space: nowrap;
-  min-width: 148px;
+  min-width: 164px;
   transition: border-color .2s, background .2s, color .2s;
 }
 .cb-btn:hover {
@@ -1017,10 +1042,34 @@ footer {
   color: var(--amber);
   background: rgba(245,166,35,0.06);
 }
-@media (max-width: 640px) {
-  .cb-inner { flex-direction: column; gap: 18px; padding: 18px 16px; }
-  .cb-actions { width: 100%; }
-  .cb-btn { flex: 1; min-width: 0; }
+/* Блок A: focus-visible для клавиатурной навигации */
+.cb-btn:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+/* Блок F: адаптив — средний и мобильный */
+@media (max-width: 860px) {
+  .cb-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 18px 20px;
+  }
+  .cb-header { min-width: 0; }
+  .cb-options {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    padding-top: 4px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+  }
+  .cb-actions { flex-direction: row; flex-wrap: wrap; }
+  .cb-btn { flex: 1; min-width: 120px; }
+}
+@media (max-width: 480px) {
+  .cb-inner { padding: 16px; }
+  .cb-actions { flex-direction: column; }
+  .cb-btn { min-width: 0; }
 }
 
 /* === SCROLL TO TOP === */
@@ -1780,38 +1829,63 @@ footer {
 </footer>
 
 <!-- COOKIE BANNER — 152-ФЗ compliant: all toggles OFF by default, equal-weight buttons -->
-<div role="dialog" aria-modal="true" aria-label="Настройки cookie" id="cookie-banner">
+<div role="dialog" aria-modal="true" aria-label="Настройки cookie" aria-describedby="cb-desc" aria-hidden="true" id="cookie-banner">
   <div class="cb-inner">
     <div class="cb-header">
-      <span class="cb-icon">🍪</span>
+      <!-- Блок E: SVG-щит вместо эмодзи 🍪 -->
+      <svg class="cb-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <polyline points="9 12 11 14 15 10"/>
+      </svg>
       <div>
         <strong class="cb-title">Мы используем cookie</strong>
-        <p class="cb-desc">Необходимые cookie уже активны — они нужны для работы сайта.<br>Вы можете разрешить дополнительные категории:</p>
+        <!-- Блок A: id для aria-describedby -->
+        <p class="cb-desc" id="cb-desc">Необходимые cookie используются всегда — они обеспечивают корректную работу сайта.<br>Вы можете разрешить дополнительные категории:</p>
       </div>
     </div>
-    <div class="cb-options">
+    <!-- Блок A: role=group с меткой для скринридеров -->
+    <div class="cb-options" role="group" aria-label="Категории cookie">
+      <!-- Необходимые — всегда активны, не отключаемы -->
+      <label class="cb-option cb-option--disabled">
+        <input type="checkbox" checked disabled aria-label="Необходимые cookie — всегда активны">
+        <!-- Блок B: замок SVG вместо янтарной галочки -->
+        <span class="cb-box" aria-hidden="true">
+          <svg width="11" height="12" viewBox="0 0 11 12" fill="none">
+            <rect x="1.5" y="5.5" width="8" height="5.5" rx="1.5" fill="currentColor"/>
+            <path d="M3.5 5.5V3.5a2 2 0 0 1 4 0v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="cb-label">
+          <span class="cb-label-main">Необходимые</span>
+          <!-- Блок C: описание категории -->
+          <span class="cb-label-desc">Корректная работа сайта</span>
+        </span>
+      </label>
       <!-- unchecked по умолчанию — требование ст. 9 ч. 1 152-ФЗ -->
       <label class="cb-option">
         <input type="checkbox" id="consent-analytics">
-        <span class="cb-box"></span>
+        <span class="cb-box" aria-hidden="true"></span>
         <span class="cb-label">
-          <span class="cb-label-main">Аналитические cookie</span>
-          <a href="/privacy" target="_blank" rel="noopener" class="cb-label-link">Политика конфиденциальности ↗</a>
+          <span class="cb-label-main">Аналитические</span>
+          <!-- Блок C: описание категории -->
+          <span class="cb-label-desc">Яндекс.Метрика — статистика посещений</span>
         </span>
       </label>
       <label class="cb-option">
         <input type="checkbox" id="consent-marketing">
-        <span class="cb-box"></span>
+        <span class="cb-box" aria-hidden="true"></span>
         <span class="cb-label">
-          <span class="cb-label-main">Маркетинговые cookie</span>
-          <a href="/privacy" target="_blank" rel="noopener" class="cb-label-link">Политика конфиденциальности ↗</a>
+          <span class="cb-label-main">Маркетинговые</span>
+          <!-- Блок C: описание категории -->
+          <span class="cb-label-desc">VK Pixel — ретаргетинг</span>
         </span>
       </label>
     </div>
-    <!-- Одинаковый визуальный вес — требование 152-ФЗ, ст. 9 -->
-    <div class="cb-actions">
-      <button class="cb-btn" id="btn-reject">Отклонить всё</button>
+    <!-- Блок D: кнопки вертикально, одинаковый вес — требование 152-ФЗ, ст. 9 -->
+    <div class="cb-actions" role="group" aria-label="Выбор согласия">
+      <button class="cb-btn" id="btn-reject">Только необходимые</button>
       <button class="cb-btn" id="btn-accept">Принять выбранное</button>
+      <button class="cb-btn" id="btn-accept-all">Принять всё</button>
     </div>
   </div>
 </div>
@@ -2015,24 +2089,57 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     return;
   }
 
+  // Запомнить элемент, который был в фокусе до открытия баннера
+  var prevFocus = null;
+
   // Показать баннер после первого рендера
   requestAnimationFrame(function () {
-    setTimeout(function () { banner.classList.add('cb-visible'); }, 250);
+    setTimeout(function () {
+      prevFocus = document.activeElement;
+      banner.classList.add('cb-visible');
+      // Блок A: убрать aria-hidden, перевести фокус на первую кнопку
+      banner.removeAttribute('aria-hidden');
+      var firstBtn = banner.querySelector('.cb-btn');
+      if (firstBtn) firstBtn.focus();
+    }, 250);
+  });
+
+  // Блок A: focus trap — Tab/Shift+Tab циклирует внутри диалога
+  banner.addEventListener('keydown', function (e) {
+    // Escape = «Только необходимые»
+    if (e.key === 'Escape') { rejectAndHide(); return; }
+    if (e.key !== 'Tab') return;
+    var focusable = Array.prototype.slice.call(
+      banner.querySelectorAll('button, [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])')
+    ).filter(function (el) { return !el.disabled && el.offsetParent !== null; });
+    if (focusable.length < 2) return;
+    var first = focusable[0];
+    var last  = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
   });
 
   function hideBanner() {
     banner.classList.remove('cb-visible');
-    // Убрать из DOM после завершения анимации
+    // Блок A: скрыть от скринридеров при скрытии
+    banner.setAttribute('aria-hidden', 'true');
     setTimeout(function () { banner.setAttribute('hidden', ''); }, 460);
+    // Вернуть фокус на элемент, с которого пришли
+    if (prevFocus && typeof prevFocus.focus === 'function') prevFocus.focus();
   }
 
-  // «Отклонить всё» — сохранить false/false, не загружать ничего
-  document.getElementById('btn-reject').addEventListener('click', function () {
+  function rejectAndHide() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       analytics: false, marketing: false, ts: Date.now()
     }));
     hideBanner();
-  });
+  }
+
+  // «Только необходимые» — сохранить false/false, не загружать ничего
+  document.getElementById('btn-reject').addEventListener('click', rejectAndHide);
 
   // «Принять выбранное» — читать чекбоксы
   document.getElementById('btn-accept').addEventListener('click', function () {
@@ -2046,23 +2153,34 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     if (marketing) loadMarketing();
   });
 
+  // «Принять всё» — включить аналитику и маркетинг
+  document.getElementById('btn-accept-all').addEventListener('click', function () {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      analytics: true, marketing: true, ts: Date.now()
+    }));
+    hideBanner();
+    loadAnalytics();
+    loadMarketing();
+  });
+
   /* ── ДИНАМИЧЕСКИЙ INJECT — скрипты грузятся ТОЛЬКО после согласия.
      Статических <script> тегов в <head> нет — требование 152-ФЗ. ── */
 
+  var analyticsLoaded = false;
   function loadAnalytics() {
+    if (analyticsLoaded) return;
+    analyticsLoaded = true;
     // Яндекс.Метрика — российский хостинг, соответствует 152-ФЗ
-    // Раскомментировать и заменить XXXXXXXX на номер счётчика:
-    /*
+    // Загружается ТОЛЬКО после явного согласия пользователя
     var s = document.createElement('script');
     s.src   = 'https://mc.yandex.ru/metrika/tag.js';
     s.async = true;
     s.onload = function () {
-      window.ym && window.ym(XXXXXXXX, 'init', {
+      window.ym && window.ym(12345678, 'init', {
         clickmap: true, trackLinks: true, accurateTrackBounce: true
       });
     };
     document.head.appendChild(s);
-    */
   }
 
   function loadMarketing() {

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Согласие на обработку персональных данных — Марина Кирина</title>
+<meta name="description" content="Управление согласиями на обработку персональных данных. Предоставьте или отзовите согласие в любой момент.">
+<meta name="robots" content="noindex">
+
+<!-- SELF-HOSTED FONTS — 152-ФЗ: никаких запросов к fonts.googleapis.com -->
+<style>
+  @font-face {
+    font-family: 'Playfair Display';
+    src: url('/fonts/playfair-display-400.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Playfair Display';
+    src: url('/fonts/playfair-display-700.woff2') format('woff2');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans-400.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans-500.woff2') format('woff2');
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans-700.woff2') format('woff2');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+</style>
+<style>
+/* === DESIGN SYSTEM === */
+:root {
+  --bg:        #0c0c10;
+  --bg2:       #121218;
+  --bg3:       #1a1a24;
+  --surface:   #1e1e2c;
+  --border:    rgba(255,255,255,0.08);
+  --border2:   rgba(255,255,255,0.14);
+  --amber:     #f5a623;
+  --amber-dim: #c4841a;
+  --amber-glow:rgba(245,166,35,0.12);
+  --red:       #e84040;
+  --red-dim:   rgba(232,64,64,0.10);
+  --green:     #3ecf8e;
+  --green-dim: rgba(62,207,142,0.10);
+  --text:      #e8e8f0;
+  --text2:     #9898b0;
+  --text3:     #5c5c7a;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body:    'DM Sans', 'Segoe UI', system-ui, sans-serif;
+  --radius:  12px;
+  --radius2: 20px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 1rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+a { color: var(--amber); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12,12,16,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+  flex-shrink: 0;
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.logo span { color: var(--amber); }
+.nav-back {
+  font-size: .88rem;
+  color: var(--text2);
+  display: flex; align-items: center; gap: 6px;
+  transition: color .2s;
+}
+.nav-back:hover { color: var(--text); text-decoration: none; }
+
+/* MAIN */
+main { flex: 1; padding: 56px 0 80px; }
+
+/* PAGE HEADER */
+.doc-label {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: var(--amber-glow);
+  border: 1px solid rgba(245,166,35,0.2);
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+.doc-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+.doc-sub {
+  font-size: .95rem;
+  color: var(--text2);
+  margin-bottom: 40px;
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+/* STATUS BANNER */
+.status-banner {
+  display: flex; align-items: center; gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 32px;
+  font-size: .9rem;
+  color: var(--text2);
+}
+.status-icon {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.status-icon--given { background: var(--green-dim); color: var(--green); }
+.status-icon--none  { background: var(--amber-glow); color: var(--amber); }
+
+/* CONSENT CARDS */
+.consent-section {
+  display: flex; flex-direction: column; gap: 16px;
+  margin-bottom: 36px;
+}
+.consent-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius2);
+  padding: 24px;
+  transition: border-color .2s;
+}
+.consent-card:has(.cc-checkbox:checked) {
+  border-color: rgba(62,207,142,0.3);
+  background: linear-gradient(135deg, var(--surface), rgba(62,207,142,0.04));
+}
+.cc-header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 16px;
+  margin-bottom: 12px;
+}
+.cc-title-wrap { flex: 1; }
+.cc-required-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--text3);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 3px 9px;
+  border-radius: 100px;
+  margin-bottom: 6px;
+}
+.cc-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.cc-subtitle {
+  font-size: .82rem;
+  color: var(--text3);
+  font-weight: 500;
+}
+
+/* TOGGLE */
+.cc-toggle {
+  position: relative;
+  flex-shrink: 0;
+}
+.cc-checkbox {
+  position: absolute;
+  opacity: 0;
+  width: 0; height: 0;
+}
+.cc-toggle-track {
+  display: block;
+  width: 48px; height: 26px;
+  border-radius: 13px;
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+  position: relative;
+}
+.cc-toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--text3);
+  transition: transform .2s, background .2s;
+}
+.cc-checkbox:checked ~ .cc-toggle-track {
+  background: rgba(62,207,142,0.2);
+  border-color: rgba(62,207,142,0.4);
+}
+.cc-checkbox:checked ~ .cc-toggle-track::after {
+  transform: translateX(22px);
+  background: var(--green);
+}
+.cc-checkbox:disabled ~ .cc-toggle-track {
+  opacity: .6;
+  cursor: not-allowed;
+}
+.cc-checkbox:focus-visible ~ .cc-toggle-track {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.cc-desc {
+  font-size: .88rem;
+  color: var(--text2);
+  line-height: 1.55;
+  margin-bottom: 12px;
+}
+.cc-footer {
+  display: flex; align-items: center; gap: 12px;
+  flex-wrap: wrap;
+}
+.cc-link {
+  font-size: .8rem;
+  color: var(--text3);
+  transition: color .2s;
+}
+.cc-link:hover { color: var(--amber); text-decoration: none; }
+.cc-status-text {
+  font-size: .8rem;
+  font-weight: 600;
+  margin-left: auto;
+}
+.cc-status-text--on  { color: var(--green); }
+.cc-status-text--off { color: var(--text3); }
+
+/* REQUIRED CARD */
+.consent-card--required {
+  border-color: var(--border2);
+  opacity: .85;
+}
+.consent-card--required .cc-toggle-track {
+  background: rgba(62,207,142,0.2);
+  border-color: rgba(62,207,142,0.4);
+}
+.consent-card--required .cc-toggle-track::after {
+  transform: translateX(22px);
+  background: var(--green);
+}
+
+/* ACTIONS */
+.consent-actions {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.btn-save {
+  flex: 1;
+  min-width: 160px;
+  background: var(--amber);
+  color: #0c0c10;
+  border: none;
+  border-radius: var(--radius);
+  padding: 14px 28px;
+  font-family: var(--font-body);
+  font-size: .95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+}
+.btn-save:hover { background: var(--amber-dim); transform: translateY(-1px); }
+.btn-save:active { transform: translateY(0); }
+.btn-revoke-all {
+  flex: 1;
+  min-width: 160px;
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 14px 28px;
+  font-family: var(--font-body);
+  font-size: .95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.btn-revoke-all:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* SUCCESS MESSAGE */
+.save-success {
+  display: none;
+  align-items: center; gap: 12px;
+  background: var(--green-dim);
+  border: 1px solid rgba(62,207,142,0.25);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  margin-bottom: 32px;
+  font-size: .9rem;
+  color: var(--green);
+}
+.save-success.visible { display: flex; }
+.save-success-icon { font-size: 1.2rem; }
+
+/* LAW TEXT */
+.law-section {
+  border-top: 1px solid var(--border);
+  padding-top: 36px;
+  margin-top: 8px;
+}
+.law-section h2 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.law-section p {
+  font-size: .88rem;
+  color: var(--text2);
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+.law-section ul {
+  font-size: .88rem;
+  color: var(--text2);
+  padding-left: 20px;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+.law-section li { margin-bottom: 4px; }
+
+/* OPERATOR INFO */
+.operator-mini {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber-dim);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  font-size: .85rem;
+  color: var(--text2);
+  margin-top: 20px;
+  line-height: 1.8;
+}
+.operator-mini strong { color: var(--text); }
+
+/* FOOTER */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 40px 0 32px;
+  flex-shrink: 0;
+}
+.footer-inner {
+  display: flex; flex-wrap: wrap;
+  align-items: flex-start; justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 28px;
+}
+.footer-brand .logo { font-size: 1.1rem; margin-bottom: 6px; }
+.footer-brand p { font-size: .85rem; color: var(--text2); }
+.toc-title {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 10px;
+}
+.footer-legal-nav {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.footer-legal-nav a {
+  font-size: .85rem;
+  color: var(--text2);
+  transition: color .2s;
+}
+.footer-legal-nav a:hover { color: var(--amber); text-decoration: none; }
+.footer-legal-nav a[aria-current="page"] {
+  color: var(--amber);
+  font-weight: 600;
+}
+.footer-bottom {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: .82rem;
+  color: var(--text3);
+}
+.footer-bottom a { color: var(--text2); font-size: .82rem; }
+.footer-bottom a:hover { color: var(--amber); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="logo">Марина <span>Кирина</span></a>
+      <a href="/" class="nav-back">← На главную</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+  <div class="container">
+
+    <div class="doc-label">152-ФЗ · Согласие</div>
+    <h1 class="doc-title">Управление согласиями<br>на обработку данных</h1>
+    <p class="doc-sub">Здесь вы можете предоставить, изменить или отозвать согласие на обработку персональных данных. Отзыв согласия не влияет на законность обработки, осуществлённой до его отзыва.</p>
+
+    <!-- STATUS -->
+    <div class="status-banner" id="statusBanner">
+      <div class="status-icon status-icon--none" id="statusIcon">📋</div>
+      <div id="statusText">Загружаем текущее состояние ваших согласий…</div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="save-success" id="saveSuccess" role="alert" aria-live="polite">
+      <span class="save-success-icon">✓</span>
+      <span id="saveSuccessText">Настройки сохранены. Спасибо!</span>
+    </div>
+
+    <!-- CONSENT CARDS -->
+    <form id="consentForm" novalidate>
+      <div class="consent-section">
+
+        <!-- 1. Строго необходимые (required, locked) -->
+        <div class="consent-card consent-card--required">
+          <div class="cc-header">
+            <div class="cc-title-wrap">
+              <div class="cc-required-badge">Всегда активно</div>
+              <div class="cc-title">Необходимые данные сайта</div>
+              <div class="cc-subtitle">Обязательные функции · отключить нельзя</div>
+            </div>
+            <div class="cc-toggle">
+              <input type="checkbox" class="cc-checkbox" id="cc-required"
+                     checked disabled aria-label="Необходимые данные — всегда активны">
+              <label class="cc-toggle-track" for="cc-required" aria-hidden="true"></label>
+            </div>
+          </div>
+          <p class="cc-desc">
+            Обеспечивает корректную работу сайта: запоминает ваши настройки cookie-баннера и форм.
+            Без этих данных сайт не может функционировать. Не требует согласия (ст. 6 ч. 1 п. 5 152-ФЗ).
+          </p>
+          <div class="cc-footer">
+            <a href="/privacy-policy" class="cc-link">Политика конфиденциальности</a>
+          </div>
+        </div>
+
+        <!-- 2. Обработка ПДн из контактной формы -->
+        <div class="consent-card">
+          <div class="cc-header">
+            <div class="cc-title-wrap">
+              <div class="cc-title">Обработка персональных данных</div>
+              <div class="cc-subtitle">Контактная форма · имя, телефон, email</div>
+            </div>
+            <div class="cc-toggle">
+              <input type="checkbox" class="cc-checkbox" id="cc-pd"
+                     name="consent_pd"
+                     aria-describedby="cc-pd-desc">
+              <label class="cc-toggle-track" for="cc-pd" aria-hidden="true"></label>
+            </div>
+          </div>
+          <p class="cc-desc" id="cc-pd-desc">
+            Позволяет обрабатывать данные, которые вы оставляете в контактной форме: имя, номер телефона и адрес электронной почты.
+            Данные используются исключительно для ответа на ваше обращение.
+            Срок хранения — 3 года или до отзыва согласия.
+          </p>
+          <div class="cc-footer">
+            <a href="/privacy-policy#purposes" class="cc-link">Подробнее о целях обработки</a>
+            <a href="/privacy-policy" class="cc-link">Политика конфиденциальности</a>
+            <span class="cc-status-text" id="cc-pd-status"></span>
+          </div>
+        </div>
+
+        <!-- 3. Маркетинговые рассылки -->
+        <div class="consent-card">
+          <div class="cc-header">
+            <div class="cc-title-wrap">
+              <div class="cc-title">Маркетинговые рассылки</div>
+              <div class="cc-subtitle">Email-рассылка · новости и предложения</div>
+            </div>
+            <div class="cc-toggle">
+              <input type="checkbox" class="cc-checkbox" id="cc-marketing"
+                     name="consent_marketing"
+                     aria-describedby="cc-marketing-desc">
+              <label class="cc-toggle-track" for="cc-marketing" aria-hidden="true"></label>
+            </div>
+          </div>
+          <p class="cc-desc" id="cc-marketing-desc">
+            Согласие на получение информационных и рекламных писем по указанному вами адресу электронной почты:
+            анонсы услуг, полезные материалы о разработке сайтов и соответствии 152-ФЗ, специальные предложения.
+            Вы можете отписаться в любое время по ссылке в письме.
+          </p>
+          <div class="cc-footer">
+            <a href="/privacy-policy#purposes" class="cc-link">Подробнее</a>
+            <span class="cc-status-text" id="cc-marketing-status"></span>
+          </div>
+        </div>
+
+        <!-- 4. Аналитика -->
+        <div class="consent-card">
+          <div class="cc-header">
+            <div class="cc-title-wrap">
+              <div class="cc-title">Аналитические cookie</div>
+              <div class="cc-subtitle">Статистика посещений · улучшение сайта</div>
+            </div>
+            <div class="cc-toggle">
+              <input type="checkbox" class="cc-checkbox" id="cc-analytics"
+                     name="consent_analytics"
+                     aria-describedby="cc-analytics-desc">
+              <label class="cc-toggle-track" for="cc-analytics" aria-hidden="true"></label>
+            </div>
+          </div>
+          <p class="cc-desc" id="cc-analytics-desc">
+            Позволяет собирать анонимную статистику о посещаемости сайта: просматриваемые страницы,
+            источники перехода, время на сайте. Используется только российский аналитический инструмент,
+            данные хранятся в РФ. Иностранные трекеры (Google Analytics и др.) не используются.
+          </p>
+          <div class="cc-footer">
+            <a href="/cookie-policy" class="cc-link">Политика cookie</a>
+            <span class="cc-status-text" id="cc-analytics-status"></span>
+          </div>
+        </div>
+
+      </div><!-- /consent-section -->
+
+      <!-- ACTIONS -->
+      <div class="consent-actions">
+        <button type="submit" class="btn-save" id="btnSave">
+          Сохранить настройки
+        </button>
+        <button type="button" class="btn-revoke-all" id="btnRevokeAll">
+          Отозвать все согласия
+        </button>
+      </div>
+
+    </form><!-- /consentForm -->
+
+    <!-- LAW TEXT -->
+    <div class="law-section">
+      <h2>О праве на отзыв согласия</h2>
+      <p>
+        В соответствии со <strong>ст. 9 ч. 2 Федерального закона № 152-ФЗ</strong> «О персональных данных»
+        субъект персональных данных вправе отозвать данное им согласие на обработку персональных данных
+        в любое время без объяснения причин.
+      </p>
+      <p>
+        После отзыва согласия Оператор обязан прекратить обработку и уничтожить персональные данные
+        в срок <strong>не более 30 дней</strong> с момента получения отзыва (ст. 9 ч. 4 152-ФЗ),
+        за исключением случаев, когда обработка может быть продолжена на ином законном основании.
+      </p>
+      <ul>
+        <li>Отзыв согласия не влияет на законность ранее произведённой обработки.</li>
+        <li>Отказ от необходимых cookie может повлиять на работу сайта.</li>
+        <li>Вы также можете направить запрос об отзыве по адресу: <a href="mailto:marina@example.com">marina@example.com</a></li>
+      </ul>
+
+      <div class="operator-mini">
+        <strong>Оператор персональных данных:</strong> Марина Кирина<br>
+        ИНН: [ЗАПОЛНИТЬ] · ОГРН/ОГРНИП: [ЗАПОЛНИТЬ]<br>
+        Адрес: [ЗАПОЛНИТЬ: юридический адрес]<br>
+        Ответственный за обработку ПДн: <a href="mailto:marina@example.com">marina@example.com</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">Марина <span>Кирина</span></div>
+        <p>Сайты · Боты · Автоматизации · 152-ФЗ</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Марина Кирина. Все права защищены.</span>
+      <a href="/consent" aria-current="page">Управление согласиями</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+// CONSENT MANAGEMENT — 152-ФЗ compliant
+// Reads / writes consent state to localStorage.
+// On first visit all optional consents are OFF (unchecked).
+// ============================================================
+
+const STORAGE_KEY = 'mk_consent_v1';
+
+// Consent IDs and their localStorage keys
+const CONSENTS = [
+  { id: 'cc-pd',        key: 'pd',        statusId: 'cc-pd-status'        },
+  { id: 'cc-marketing', key: 'marketing',  statusId: 'cc-marketing-status' },
+  { id: 'cc-analytics', key: 'analytics',  statusId: 'cc-analytics-status' },
+];
+
+// ---- Load saved state ----
+function loadState() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  } catch { return {}; }
+}
+
+// ---- Save state ----
+function saveState(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+// ---- Render status text ----
+function renderStatus(el, checked) {
+  if (!el) return;
+  if (checked) {
+    el.textContent = '✓ Согласие дано';
+    el.className = 'cc-status-text cc-status-text--on';
+  } else {
+    el.textContent = 'Не дано';
+    el.className = 'cc-status-text cc-status-text--off';
+  }
+}
+
+// ---- Init ----
+function init() {
+  const state = loadState();
+  let anyGiven = false;
+
+  CONSENTS.forEach(({ id, key, statusId }) => {
+    const checkbox = document.getElementById(id);
+    const statusEl = document.getElementById(statusId);
+    const isChecked = state[key] === true;
+    checkbox.checked = isChecked;
+    renderStatus(statusEl, isChecked);
+    if (isChecked) anyGiven = true;
+
+    // Live status update
+    checkbox.addEventListener('change', () => {
+      renderStatus(statusEl, checkbox.checked);
+    });
+  });
+
+  // Status banner
+  updateBanner(anyGiven);
+}
+
+function updateBanner(anyGiven) {
+  const banner = document.getElementById('statusBanner');
+  const icon   = document.getElementById('statusIcon');
+  const text   = document.getElementById('statusText');
+
+  const state = loadState();
+  const givenList = CONSENTS.filter(c => state[c.key] === true).map(c => {
+    const el = document.getElementById(c.id);
+    const title = el.closest('.consent-card').querySelector('.cc-title').textContent;
+    return title;
+  });
+
+  if (givenList.length === 0) {
+    icon.textContent = '📋';
+    icon.className = 'status-icon status-icon--none';
+    text.textContent = 'Согласия на обработку данных не даны. Необходимые функции сайта всегда активны.';
+  } else {
+    icon.textContent = '✓';
+    icon.className = 'status-icon status-icon--given';
+    text.innerHTML = `Активные согласия: <strong>${givenList.join(', ')}</strong>`;
+  }
+}
+
+// ---- Save ----
+document.getElementById('consentForm').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const state = loadState();
+
+  CONSENTS.forEach(({ id, key }) => {
+    state[key] = document.getElementById(id).checked;
+  });
+
+  saveState(state);
+
+  // Sync with cookie banner state
+  const cookieBannerConsents = {};
+  if (state.analytics) cookieBannerConsents.analytics = true;
+  if (state.marketing)  cookieBannerConsents.marketing  = true;
+  localStorage.setItem('mk_cookie_consent_v1', JSON.stringify({
+    given: true,
+    analytics: !!state.analytics,
+    marketing:  !!state.marketing,
+    ts: Date.now()
+  }));
+
+  // Show success
+  const successEl = document.getElementById('saveSuccess');
+  const allOff = CONSENTS.every(({ key }) => !state[key]);
+  document.getElementById('saveSuccessText').textContent = allOff
+    ? 'Все согласия отозваны. Данные будут удалены в течение 30 дней.'
+    : 'Настройки сохранены. Изменения вступят в силу немедленно.';
+  successEl.classList.add('visible');
+  successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  setTimeout(() => successEl.classList.remove('visible'), 6000);
+
+  updateBanner();
+});
+
+// ---- Revoke all ----
+document.getElementById('btnRevokeAll').addEventListener('click', () => {
+  CONSENTS.forEach(({ id, key, statusId }) => {
+    const checkbox = document.getElementById(id);
+    checkbox.checked = false;
+    renderStatus(document.getElementById(statusId), false);
+  });
+
+  const state = {};
+  CONSENTS.forEach(({ key }) => { state[key] = false; });
+  saveState(state);
+
+  localStorage.setItem('mk_cookie_consent_v1', JSON.stringify({
+    given: true, analytics: false, marketing: false, ts: Date.now()
+  }));
+
+  const successEl = document.getElementById('saveSuccess');
+  document.getElementById('saveSuccessText').textContent =
+    'Все согласия отозваны. Данные будут удалены в течение 30 дней.';
+  successEl.classList.add('visible');
+  successEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  setTimeout(() => successEl.classList.remove('visible'), 6000);
+
+  updateBanner(false);
+});
+
+// ---- Run ----
+init();
+</script>
+
+</body>
+</html>

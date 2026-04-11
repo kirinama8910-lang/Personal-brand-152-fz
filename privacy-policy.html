@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Политика обработки персональных данных — Марина Кирина</title>
+<meta name="description" content="Политика в отношении обработки персональных данных. Марина Кирина — разработчик сайтов и автоматизаций.">
+<meta name="robots" content="noindex">
+
+<!-- SELF-HOSTED FONTS — 152-ФЗ: никаких запросов к fonts.googleapis.com -->
+<style>
+  @font-face {
+    font-family: 'Playfair Display';
+    src: url('/fonts/playfair-display-400.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'Playfair Display';
+    src: url('/fonts/playfair-display-700.woff2') format('woff2');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans-400.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans-500.woff2') format('woff2');
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/fonts/dm-sans-700.woff2') format('woff2');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+</style>
+<style>
+/* === DESIGN SYSTEM (shared with index.html) === */
+:root {
+  --bg:        #0c0c10;
+  --bg2:       #121218;
+  --bg3:       #1a1a24;
+  --surface:   #1e1e2c;
+  --border:    rgba(255,255,255,0.08);
+  --border2:   rgba(255,255,255,0.14);
+  --amber:     #f5a623;
+  --amber-dim: #c4841a;
+  --amber-glow:rgba(245,166,35,0.12);
+  --red:       #e84040;
+  --green:     #3ecf8e;
+  --text:      #e8e8f0;
+  --text2:     #9898b0;
+  --text3:     #5c5c7a;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body:    'DM Sans', 'Segoe UI', system-ui, sans-serif;
+  --radius:  12px;
+  --radius2: 20px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+a { color: var(--amber); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12,12,16,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0;
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.logo span { color: var(--amber); }
+.nav-back {
+  font-size: .88rem;
+  color: var(--text2);
+  display: flex; align-items: center; gap: 6px;
+  transition: color .2s;
+}
+.nav-back:hover { color: var(--text); text-decoration: none; }
+
+/* PAGE HEADER */
+.doc-header {
+  padding: 64px 0 48px;
+  border-bottom: 1px solid var(--border);
+}
+.doc-label {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: var(--amber-glow);
+  border: 1px solid rgba(245,166,35,0.2);
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+.doc-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+.doc-meta {
+  display: flex; flex-wrap: wrap; gap: 20px;
+  font-size: .85rem;
+  color: var(--text2);
+}
+.doc-meta span { display: flex; align-items: center; gap: 6px; }
+
+/* CONTENT */
+.doc-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 48px;
+  padding: 48px 0 80px;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .doc-layout { grid-template-columns: 1fr; gap: 32px; }
+  .doc-toc { order: -1; }
+}
+
+/* TOC */
+.doc-toc {
+  position: sticky;
+  top: 80px;
+}
+.toc-title {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 12px;
+}
+.toc-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toc-list a {
+  display: block;
+  font-size: .83rem;
+  color: var(--text2);
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: color .15s, background .15s;
+  border-left: 2px solid transparent;
+}
+.toc-list a:hover {
+  color: var(--text);
+  background: var(--surface);
+  text-decoration: none;
+  border-left-color: var(--amber-dim);
+}
+
+/* DOCUMENT BODY */
+.doc-body section {
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--border);
+}
+.doc-body section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+.doc-body h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 20px;
+  scroll-margin-top: 80px;
+}
+.doc-body h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-top: 24px;
+  margin-bottom: 10px;
+}
+.doc-body p {
+  color: var(--text2);
+  margin-bottom: 14px;
+  font-size: .95rem;
+}
+.doc-body p:last-child { margin-bottom: 0; }
+.doc-body ul, .doc-body ol {
+  color: var(--text2);
+  padding-left: 20px;
+  margin-bottom: 14px;
+  font-size: .95rem;
+}
+.doc-body li { margin-bottom: 6px; }
+.doc-body strong { color: var(--text); font-weight: 600; }
+
+/* INFO BOX */
+.info-box {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+.info-box p { margin-bottom: 8px; }
+.info-box p:last-child { margin-bottom: 0; }
+
+/* OPERATOR CARD */
+.operator-card {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-left: 3px solid var(--amber);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 24px;
+}
+.operator-card .row {
+  display: flex; gap: 8px;
+  font-size: .9rem;
+  margin-bottom: 8px;
+  color: var(--text2);
+}
+.operator-card .row:last-child { margin-bottom: 0; }
+.operator-card .label {
+  min-width: 160px;
+  color: var(--text3);
+  font-size: .82rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding-top: 2px;
+}
+.operator-card .value { color: var(--text); }
+
+/* TABLE */
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+  margin: 20px 0;
+}
+.doc-table th {
+  background: var(--bg3);
+  color: var(--text3);
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border2);
+}
+.doc-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+  vertical-align: top;
+}
+.doc-table tr:last-child td { border-bottom: none; }
+
+/* RIGHTS LIST */
+.rights-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+.rights-list li {
+  display: flex; align-items: flex-start; gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-size: .9rem;
+  color: var(--text2);
+}
+.rights-list li::before {
+  content: '✓';
+  color: var(--green);
+  font-weight: 800;
+  flex-shrink: 0;
+  font-size: .95rem;
+}
+
+/* FOOTER */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 40px 0 32px;
+}
+.footer-inner {
+  display: flex; flex-wrap: wrap;
+  align-items: flex-start; justify-content: space-between;
+  gap: 32px;
+  margin-bottom: 28px;
+}
+.footer-brand .logo { font-size: 1.1rem; margin-bottom: 6px; }
+.footer-brand p { font-size: .85rem; color: var(--text2); }
+.footer-legal-nav {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.footer-legal-nav a {
+  font-size: .85rem;
+  color: var(--text2);
+  transition: color .2s;
+}
+.footer-legal-nav a:hover { color: var(--amber); text-decoration: none; }
+.footer-legal-nav a[aria-current="page"] {
+  color: var(--amber);
+  font-weight: 600;
+}
+.footer-bottom {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: space-between; gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: .82rem;
+  color: var(--text3);
+}
+.footer-bottom a {
+  color: var(--text2);
+  font-size: .82rem;
+}
+.footer-bottom a:hover { color: var(--amber); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container">
+    <div class="nav-inner">
+      <a href="/" class="logo" style="text-decoration:none">Марина <span>Кирина</span></a>
+      <a href="/" class="nav-back">← На главную</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="doc-header">
+  <div class="container">
+    <div class="doc-label">Юридический документ</div>
+    <h1 class="doc-title">Политика обработки<br>персональных данных</h1>
+    <div class="doc-meta">
+      <span>📄 152-ФЗ от 27.07.2006</span>
+      <span>📅 Дата публикации: 11.04.2026</span>
+      <span>🔄 Последнее обновление: 11.04.2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- CONTENT -->
+<main>
+  <div class="container">
+    <div class="doc-layout">
+
+      <!-- TOC -->
+      <aside class="doc-toc" aria-label="Содержание">
+        <div class="toc-title">Содержание</div>
+        <ul class="toc-list">
+          <li><a href="#operator">1. Оператор</a></li>
+          <li><a href="#concepts">2. Основные понятия</a></li>
+          <li><a href="#purposes">3. Цели обработки</a></li>
+          <li><a href="#grounds">4. Правовые основания</a></li>
+          <li><a href="#categories">5. Категории данных</a></li>
+          <li><a href="#actions">6. Действия с данными</a></li>
+          <li><a href="#retention">7. Сроки хранения</a></li>
+          <li><a href="#rights">8. Права субъектов</a></li>
+          <li><a href="#procedure">9. Реализация прав</a></li>
+          <li><a href="#security">10. Меры безопасности</a></li>
+          <li><a href="#localization">11. Локализация</a></li>
+          <li><a href="#third-parties">12. Третьи лица</a></li>
+          <li><a href="#cookies">13. Cookie-файлы</a></li>
+          <li><a href="#final">14. Заключение</a></li>
+        </ul>
+      </aside>
+
+      <!-- BODY -->
+      <div class="doc-body">
+
+        <section id="operator">
+          <h2>1. Оператор персональных данных</h2>
+          <p>Настоящая Политика разработана в соответствии с Конституцией РФ (ст. 23, 24), Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных», Постановлениями Правительства РФ № 687 от 15.09.2008 и № 1119 от 01.11.2012.</p>
+          <p>Политика определяет порядок обработки персональных данных и меры по обеспечению их безопасности, предпринимаемые Оператором.</p>
+          <div class="operator-card">
+            <div class="row">
+              <span class="label">Наименование</span>
+              <span class="value">Марина Кирина<br><small style="color:var(--text3);font-size:.8rem">[ЗАПОЛНИТЬ: полное наименование — ИП / ФИО физлица]</small></span>
+            </div>
+            <div class="row">
+              <span class="label">ИНН</span>
+              <span class="value">[ЗАПОЛНИТЬ: ИНН]</span>
+            </div>
+            <div class="row">
+              <span class="label">ОГРН / ОГРНИП</span>
+              <span class="value">[ЗАПОЛНИТЬ: ОГРН или ОГРНИП]</span>
+            </div>
+            <div class="row">
+              <span class="label">Юридический адрес</span>
+              <span class="value">[ЗАПОЛНИТЬ: юридический адрес]</span>
+            </div>
+            <div class="row">
+              <span class="label">Ответственный за ПДн</span>
+              <span class="value">Марина Кирина</span>
+            </div>
+            <div class="row">
+              <span class="label">Контакт ответственного</span>
+              <span class="value"><a href="mailto:marina@example.com">marina@example.com</a></span>
+            </div>
+            <div class="row">
+              <span class="label">Сайт</span>
+              <span class="value"><a href="/">[ЗАПОЛНИТЬ: URL сайта]</a></span>
+            </div>
+          </div>
+          <p>Оператор ставит важнейшей целью соблюдение прав и свобод человека и гражданина при обработке его персональных данных, в том числе защиту прав на неприкосновенность частной жизни, личную и семейную тайну.</p>
+        </section>
+
+        <section id="concepts">
+          <h2>2. Основные понятия</h2>
+          <p>В настоящей Политике используются следующие термины:</p>
+          <ul>
+            <li><strong>Персональные данные</strong> — любая информация, относящаяся к определённому или определяемому физическому лицу (субъекту персональных данных) (п. 1 ст. 3 152-ФЗ).</li>
+            <li><strong>Обработка персональных данных</strong> — любое действие с персональными данными: сбор, запись, систематизация, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передача (распространение, предоставление, доступ), обезличивание, блокирование, удаление, уничтожение.</li>
+            <li><strong>Оператор</strong> — лицо, организующее и осуществляющее обработку персональных данных, а также определяющее цели обработки и состав персональных данных.</li>
+            <li><strong>Субъект персональных данных</strong> — физическое лицо, к которому относятся персональные данные.</li>
+            <li><strong>Согласие</strong> — свободное, конкретное, информированное и сознательное волеизъявление субъекта ПДн (ст. 9 152-ФЗ).</li>
+          </ul>
+        </section>
+
+        <section id="purposes">
+          <h2>3. Цели обработки персональных данных</h2>
+          <p>Оператор обрабатывает персональные данные исключительно в следующих целях:</p>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Цель</th>
+                <th>Категории данных</th>
+                <th>Основание</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Обработка обращений через контактную форму сайта</td>
+                <td>Имя, телефон, email</td>
+                <td>Согласие субъекта (ст. 6 ч. 1 п. 1)</td>
+              </tr>
+              <tr>
+                <td>Ответ на запросы и консультации</td>
+                <td>Имя, телефон, email</td>
+                <td>Исполнение договора (ст. 6 ч. 1 п. 5)</td>
+              </tr>
+              <tr>
+                <td>Направление маркетинговых сообщений и рассылок</td>
+                <td>Email, имя</td>
+                <td>Согласие субъекта (ст. 6 ч. 1 п. 1)</td>
+              </tr>
+              <tr>
+                <td>Анализ посещаемости и улучшение сайта (аналитические cookie)</td>
+                <td>IP-адрес, данные о поведении на сайте</td>
+                <td>Согласие субъекта (ст. 6 ч. 1 п. 1)</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Обработка осуществляется только в объёме, необходимом для достижения каждой из указанных целей (ст. 5 ч. 5 152-ФЗ).</p>
+        </section>
+
+        <section id="grounds">
+          <h2>4. Правовые основания обработки</h2>
+          <p>Обработка персональных данных осуществляется на основании (ст. 6 152-ФЗ):</p>
+          <ul>
+            <li>согласия субъекта персональных данных;</li>
+            <li>необходимости исполнения договора, стороной которого является субъект;</li>
+            <li>осуществления законных интересов Оператора;</li>
+            <li>выполнения обязанностей, возложенных законодательством Российской Федерации.</li>
+          </ul>
+          <p>При отсутствии иного правового основания обработка персональных данных производится исключительно с согласия субъекта.</p>
+        </section>
+
+        <section id="categories">
+          <h2>5. Категории персональных данных</h2>
+          <p>Оператор обрабатывает следующие категории персональных данных:</p>
+          <ul>
+            <li><strong>Контактные данные:</strong> фамилия, имя, номер телефона, адрес электронной почты.</li>
+            <li><strong>Технические данные:</strong> IP-адрес, тип и версия браузера, данные о действиях на сайте (только при наличии согласия на аналитические cookie).</li>
+          </ul>
+          <p>Оператор <strong>не обрабатывает</strong> специальные категории персональных данных (сведения о здоровье, биометрические данные, расовую или национальную принадлежность, политические или религиозные убеждения).</p>
+          <p>Оператор <strong>не обрабатывает</strong> персональные данные лиц моложе 18 лет без согласия их законных представителей.</p>
+        </section>
+
+        <section id="actions">
+          <h2>6. Действия с персональными данными</h2>
+          <p>Оператор осуществляет следующие действия: сбор, запись, систематизацию, накопление, хранение, уточнение (обновление, изменение), извлечение, использование, передачу (предоставление, доступ), обезличивание, блокирование, удаление, уничтожение персональных данных.</p>
+          <p>Обработка осуществляется с использованием средств автоматизации и без использования таких средств.</p>
+          <p>Передача персональных данных третьим лицам осуществляется только при наличии согласия субъекта или по основаниям, предусмотренным законодательством (ст. 6 ч. 1 152-ФЗ).</p>
+        </section>
+
+        <section id="retention">
+          <h2>7. Сроки обработки и хранения</h2>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Категория данных</th>
+                <th>Срок хранения</th>
+                <th>Критерий окончания</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Данные контактной формы (имя, телефон, email)</td>
+                <td>3 года</td>
+                <td>Со дня получения обращения или до отзыва согласия</td>
+              </tr>
+              <tr>
+                <td>Email для маркетинговой рассылки</td>
+                <td>До отзыва согласия</td>
+                <td>Удаление не позднее 30 дней после отзыва</td>
+              </tr>
+              <tr>
+                <td>Аналитические данные (cookie)</td>
+                <td>До отзыва согласия</td>
+                <td>Удаление при отзыве согласия через баннер или страницу управления</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>По достижении целей обработки или при отзыве согласия персональные данные уничтожаются в срок <strong>не более 30 дней</strong>, если иное не предусмотрено законодательством (ст. 5 ч. 7, ст. 9 ч. 4 152-ФЗ).</p>
+        </section>
+
+        <section id="rights">
+          <h2>8. Права субъектов персональных данных</h2>
+          <p>Субъект персональных данных вправе (ст. 14–16 152-ФЗ):</p>
+          <ul class="rights-list">
+            <li>Получать информацию о том, обрабатываются ли его персональные данные, а также получать сведения о целях и способах обработки</li>
+            <li>Требовать уточнения, блокирования или уничтожения персональных данных, если они являются неполными, устаревшими, неточными, незаконно полученными или не необходимыми для заявленной цели обработки</li>
+            <li>Отозвать согласие на обработку персональных данных в любой момент без объяснения причин</li>
+            <li>Требовать прекращения обработки и уничтожения данных в случае отзыва согласия</li>
+            <li>Обжаловать действия или бездействие Оператора в уполномоченный орган по защите прав субъектов ПДн (Роскомнадзор) или в судебном порядке</li>
+          </ul>
+        </section>
+
+        <section id="procedure">
+          <h2>9. Порядок реализации прав</h2>
+          <div class="info-box">
+            <p><strong>Как направить запрос:</strong></p>
+            <p>Запрос направляется на электронный адрес ответственного за обработку ПДн: <a href="mailto:marina@example.com">marina@example.com</a></p>
+            <p>Или почтовым отправлением по адресу: [ЗАПОЛНИТЬ: юридический адрес]</p>
+          </div>
+          <p>Оператор обязан предоставить ответ в течение <strong>10 рабочих дней</strong> с момента получения запроса (ч. 4 ст. 14 152-ФЗ).</p>
+          <p>При отзыве согласия обработка персональных данных прекращается, а данные уничтожаются в срок <strong>до 30 дней</strong> с даты поступления отзыва.</p>
+          <p>Отозвать согласие на обработку данных можно также на <a href="/consent">странице управления согласиями</a>.</p>
+        </section>
+
+        <section id="security">
+          <h2>10. Меры по обеспечению безопасности</h2>
+          <p>Оператор принимает следующие организационные и технические меры (ст. 19 152-ФЗ):</p>
+          <ul>
+            <li>назначение ответственного за организацию обработки персональных данных;</li>
+            <li>разработка внутренних нормативных документов по обработке ПДн;</li>
+            <li>ограничение доступа к персональным данным: только уполномоченные лица;</li>
+            <li>шифрование данных при передаче по открытым каналам связи (HTTPS);</li>
+            <li>резервное копирование данных;</li>
+            <li>антивирусная защита и мониторинг безопасности;</li>
+            <li>оценка вреда субъектам персональных данных (ст. 18.1 ч. 1 п. 5 152-ФЗ).</li>
+          </ul>
+        </section>
+
+        <section id="localization">
+          <h2>11. Локализация данных</h2>
+          <p>В соответствии со ст. 18 ч. 5 152-ФЗ Оператор обеспечивает хранение персональных данных граждан Российской Федерации с использованием баз данных, находящихся на территории Российской Федерации.</p>
+          <p><strong>Место хранения данных:</strong> [ЗАПОЛНИТЬ: хостинг-провайдер и адрес дата-центра в РФ]</p>
+          <p>Трансграничная передача персональных данных Оператором <strong>не осуществляется</strong>. Иностранные сервисы (Google Fonts, Google Analytics, Facebook Pixel и аналогичные), способные передавать данные за рубеж, на сайте не используются.</p>
+        </section>
+
+        <section id="third-parties">
+          <h2>12. Передача третьим лицам</html>
+          <p>Оператор не передаёт персональные данные третьим лицам, за исключением случаев, предусмотренных законодательством Российской Федерации, или при наличии явного согласия субъекта персональных данных.</p>
+          <p>На сайте не установлены сторонние трекеры, пиксели и аналитические скрипты иностранных сервисов. Аналитические инструменты (при наличии согласия) размещены на российских серверах и работают в соответствии с требованиями 152-ФЗ.</p>
+        </section>
+
+        <section id="cookies">
+          <h2>13. Cookie-файлы</h2>
+          <p>При посещении сайта могут использоваться cookie-файлы различных категорий. Подробная информация об используемых cookie и порядке управления ими содержится в <a href="/cookie-policy">Политике использования cookie-файлов</a>.</p>
+          <p>Строго необходимые cookie устанавливаются автоматически и обеспечивают функционирование сайта. Аналитические и маркетинговые cookie устанавливаются только с явного согласия пользователя.</p>
+          <p>Управлять согласиями на использование cookie можно на <a href="/consent">странице управления согласиями</a> или через настройки браузера.</p>
+        </section>
+
+        <section id="final">
+          <h2>14. Заключительные положения</h2>
+          <p>Настоящая Политика является общедоступным документом и размещается на сайте Оператора.</p>
+          <p>Оператор вправе вносить изменения в настоящую Политику. Актуальная редакция всегда доступна на этой странице. При существенных изменениях Оператор уведомляет пользователей через сайт.</p>
+          <p>Продолжение использования сайта после публикации изменений означает принятие новой редакции Политики.</p>
+          <div class="info-box" style="margin-top:24px">
+            <p><strong>Дата первой публикации:</strong> 11 апреля 2026 г.</p>
+            <p><strong>Дата последнего обновления:</strong> 11 апреля 2026 г.</p>
+            <p style="margin-top:8px;font-size:.85rem">По всем вопросам, связанным с обработкой персональных данных, обращайтесь: <a href="mailto:marina@example.com">marina@example.com</a></p>
+          </div>
+        </section>
+
+      </div><!-- /doc-body -->
+    </div><!-- /doc-layout -->
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">Марина <span>Кирина</span></div>
+        <p>Сайты · Боты · Автоматизации · 152-ФЗ</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Марина Кирина. Все права защищены.</span>
+      <a href="/consent">Управление согласиями на обработку данных</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

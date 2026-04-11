@@ -146,13 +146,13 @@ section { position: relative; z-index: 1; }
 .reveal.visible { opacity: 1; transform: none; }
 
 /* === NAV === */
-nav {
+#mainNav {
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 100;
   padding: 16px 0;
   transition: background .3s, backdrop-filter .3s;
 }
-nav.scrolled {
+#mainNav.scrolled {
   background: rgba(12,12,16,0.85);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
@@ -821,6 +821,18 @@ footer {
   color: var(--text3);
 }
 .consent-manage-link:hover { color: var(--amber); }
+.footer-docs-title {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 10px;
+}
+.footer-docs-nav { display: flex; flex-direction: column; gap: 6px; }
+.footer-docs-nav a { font-size: .85rem; color: var(--text2); transition: color .2s; }
+.footer-docs-nav a:hover { color: var(--amber); text-decoration: none; }
+.footer-docs { min-width: 180px; flex: 1; }
 
 /* === HERO COMPLIANCE STRIP === */
 .hero-compliance {
@@ -1742,7 +1754,7 @@ footer {
               <input type="checkbox" id="cf-consent-pd" name="consent_pd" required>
               <span class="cf-checkbox-box" aria-hidden="true"></span>
               <span class="cf-consent-text">
-                Даю <a href="/consent" target="_blank" rel="noopener">согласие на обработку
+                Даю <a href="consent.html" target="_blank" rel="noopener">согласие на обработку
                 персональных данных</a> в соответствии с
                 <a href="/privacy" target="_blank" rel="noopener">Политикой конфиденциальности</a> *
                 <span class="cf-consent-note">Обязательное условие для отправки заявки</span>
@@ -1819,11 +1831,19 @@ footer {
           <span>E-mail: <a href="mailto:marina@example.com">marina@example.com</a></span>
         </div>
       </div>
+      <div class="footer-docs">
+        <div class="footer-docs-title">Правовые документы</div>
+        <nav class="footer-docs-nav">
+          <a href="privacy-policy.html" target="_blank" rel="noopener noreferrer">Политика обработки персональных данных</a>
+          <a href="consent.html" target="_blank" rel="noopener noreferrer">Согласие на обработку ПДн</a>
+          <a href="cookie-policy.html" target="_blank" rel="noopener noreferrer">Политика использования cookie</a>
+        </nav>
+      </div>
     </div>
     <div class="footer-legal">
       <span>© 2025 Марина Кирина. Все права защищены.</span>
       <!-- Withdraw consent link — required by 152-FZ ст. 9 ч. 2: must be ≤2 clicks from any page -->
-      <a href="/consent" class="consent-manage-link">Управление согласиями на обработку данных</a>
+      <a href="consent.html" class="consent-manage-link">Управление согласиями на обработку данных</a>
     </div>
   </div>
 </footer>

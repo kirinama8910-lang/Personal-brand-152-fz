@@ -30,7 +30,7 @@
 - [ ] ИНН в consent.html, privacy-policy.html, cookie-policy.html (маркер [ИНН_ЗАПОЛНИТЬ])
 - [ ] WEBHOOK_URL в assets/js/constants.js
 - [ ] METRIKA_ID в assets/js/constants.js (та же цифра — в `<head>` index.html, в `window.METRIKA_ID`)
-- [ ] Скачать шрифты Geologica + PT Mono с paratype.ru и Onest с GitHub-репозитория автора (SIL OFL 1.1) и положить WOFF2-файлы в /assets/fonts/
+- [x] Шрифты Geologica + Onest + PT Mono — уже в /assets/fonts/ как variable-TTF (SIL OFL 1.1)
 - [ ] Создать бота @KirinaAI_bot через @BotFather, установить имя «Марина Кирина | автоматизация»
 - [ ] Подать уведомление в РКН по pd.rkn.gov.ru до начала обработки персональных данных
 

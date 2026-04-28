@@ -428,127 +428,62 @@ PORTFOLIO_PLACEHOLDER здесь не используется — это мес
 
 ### Тройка шрифтов (display + body + mono)
 
-| Роль | Шрифт | Производитель | Лицензия | Зачем именно он |
-|------|-------|---------------|----------|------------------|
-| Display (H1, H2, hero-цитаты, оффер) | **Geologica** | ParaType | SIL OFL 1.1 | Variable, контрастный, с характерным «редакторским» голосом — выдерживает крупные кегли в Hero и не «уютит» как PT Serif |
-| Body, UI, формы, кнопки | **Onest** | Roman Shirokov / opensource | SIL OFL 1.1 | Современный grotesque с открытыми формами; читабелен в 17–19px, не путается с Inter (закрытые формы — другой ритм) |
-| Mono (нумерация секций, цены, плейсхолдеры, мета) | **PT Mono** | ParaType | SIL OFL 1.1 | Российский monospaced с лёгким humanist-характером — для редакторских меток `01 / Hero`, цен «от 120 000 ₽», `[ИНН_ЗАПОЛНИТЬ]` |
+| Роль | Шрифт | Лицензия | Зачем именно он |
+|------|-------|----------|------------------|
+| Display (H1, H2, hero-цитаты, оффер) | **Geologica** (variable) | SIL OFL 1.1 | Variable, контрастный, с характерным «редакторским» голосом — выдерживает крупные кегли в Hero и не «уютит» как PT Serif. Один файл покрывает веса 100–900 + axis CRSV/SHRP/slnt. |
+| Body, UI, формы, кнопки | **Onest** (variable) | SIL OFL 1.1 | Современный grotesque с открытыми формами; читабелен в 17–19px, не путается с Inter (закрытые формы — другой ритм). Variable, один файл на все веса. |
+| Mono (нумерация секций, цены, плейсхолдеры, мета) | **PT Mono** | SIL OFL 1.1 | Monospaced с лёгким humanist-характером — для редакторских меток `01 / Hero`, цен «от 120 000 ₽», `[ИНН_ЗАПОЛНИТЬ]`. Один регулярный начертание. |
 
-Все три — **российские**, кириллица + латиница в полном составе, бесплатное коммерческое использование под SIL OFL 1.1.
+Кириллица + латиница в полном составе, бесплатное коммерческое использование под SIL OFL 1.1.
 
 **Почему именно эти, а не PT Serif + Golos Text (как было раньше):**
 - PT Serif — классический, но «спокойный»; в кегле 56–72px Hero-заголовок «Лучшее, что вы сделаете для бизнеса…» теряется и звучит как обычный книжный заголовок. Geologica на той же высоте даёт акцентированный, контрастный голос — нужный для парадокса.
 - Golos Text хороший body, но против Onest проигрывает в современности; рядом с Geologica Display получается «классика + классика» — слишком тихо. Onest даёт нужный регистр-контраст.
 - PT Mono добавляет третий голос для микро-типографики — нумерация секций и цены становятся узнаваемой деталью, а не служебной строкой.
 
-### Источники скачивания
+### Файлы уже в репозитории
 
-| Шрифт | Где брать | Что скачать |
-|-------|-----------|-------------|
-| Geologica | [paratype.ru](https://www.paratype.ru/) — поиск «Geologica» | OTF + WOFF2 для Regular, Medium, SemiBold, Bold, Black; и Italic-варианты Regular и Bold. Если есть variable WOFF2 — взять и его, использовать как fallback. |
-| Onest | GitHub (поиск «Onest font SIL OFL») — официальный репозиторий автора | WOFF2 для Regular 400, Medium 500, Bold 700 |
-| PT Mono | [paratype.ru](https://www.paratype.ru/) — поиск «PT Mono» | WOFF2 для Regular 400 (одного начертания достаточно) |
-
-Если дистрибутив отдаёт только TTF/OTF — конвертировать в WOFF2 локально через `fonttools` (`pyftsubset` + `woff2_compress`). Не использовать онлайн-конвертеры с заливкой файлов на чужие серверы (152-ФЗ + общая безопасность).
-
-### Структура файлов
+Шрифты скачаны и закоммичены в [/assets/fonts/](assets/fonts/). **Дополнительно ничего класть руками не нужно** — всё уже есть. Источник — публичный репозиторий [google/fonts](https://github.com/google/fonts) (raw-файлы на github.com, не Google Fonts CDN; SIL OFL 1.1 разрешает редистрибуцию).
 
 ```
 /assets/fonts/
-├── geologica-regular.woff2
-├── geologica-medium.woff2
-├── geologica-semibold.woff2
-├── geologica-bold.woff2
-├── geologica-black.woff2
-├── geologica-italic.woff2
-├── geologica-bold-italic.woff2
-├── onest-regular.woff2
-├── onest-medium.woff2
-├── onest-bold.woff2
-└── pt-mono-regular.woff2
+├── Geologica-Variable.ttf   (~340 KB, variable: вес 100–900 + axes CRSV/SHRP/slnt)
+├── Onest-Variable.ttf       (~121 KB, variable: вес 100–900)
+├── PTMono-Regular.ttf       (~181 KB)
+├── OFL-Geologica.txt        (текст лицензии — обязательно по SIL OFL 1.1)
+├── OFL-Onest.txt
+└── OFL-PTMono.txt
 ```
+
+**Формат — TTF, не WOFF2.** Это сознательный компромисс: variable-шрифты в TTF дают один файл на семейство (вместо 7 статических WOFF2), и лендинг получается компактнее по числу запросов и проще по поддержке. Итоговый объём шрифтов — около 640 KB, что приемлемо для лендинга.
 
 ### Инструкция подключения (152-ФЗ-совместимая)
 
 ```css
-/* Geologica — display, заголовки, оффер, hero-цитата */
+/* Geologica — variable: один файл покрывает веса 100–900 */
 @font-face {
   font-family: 'Geologica';
-  src: url('/assets/fonts/geologica-regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geologica';
-  src: url('/assets/fonts/geologica-medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geologica';
-  src: url('/assets/fonts/geologica-semibold.woff2') format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geologica';
-  src: url('/assets/fonts/geologica-bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geologica';
-  src: url('/assets/fonts/geologica-black.woff2') format('woff2');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geologica';
-  src: url('/assets/fonts/geologica-italic.woff2') format('woff2');
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geologica';
-  src: url('/assets/fonts/geologica-bold-italic.woff2') format('woff2');
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
-/* Onest — body, UI, формы */
-@font-face {
-  font-family: 'Onest';
-  src: url('/assets/fonts/onest-regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Onest';
-  src: url('/assets/fonts/onest-medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Onest';
-  src: url('/assets/fonts/onest-bold.woff2') format('woff2');
-  font-weight: 700;
+  src: url('/assets/fonts/Geologica-Variable.ttf') format('truetype-variations'),
+       url('/assets/fonts/Geologica-Variable.ttf') format('truetype');
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
-/* PT Mono — нумерация, цены, мета */
+/* Onest — variable: один файл покрывает веса 100–900 */
+@font-face {
+  font-family: 'Onest';
+  src: url('/assets/fonts/Onest-Variable.ttf') format('truetype-variations'),
+       url('/assets/fonts/Onest-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* PT Mono — статический Regular */
 @font-face {
   font-family: 'PT Mono';
-  src: url('/assets/fonts/pt-mono-regular.woff2') format('woff2');
+  src: url('/assets/fonts/PTMono-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -572,24 +507,26 @@ h1, h2, h3, .display, blockquote { font-family: var(--font-display); }
 
 | Уровень | Кегль desktop | Кегль mobile | Семейство / вес |
 |---------|---------------|--------------|-----------------|
-| H1 (Hero) | clamp(48px, 6.5vw, 84px) | 36–44px | Geologica Black 900 |
-| H1 (другие секции) | clamp(36px, 4.5vw, 56px) | 28–32px | Geologica Bold 700 |
-| H2 | clamp(26px, 2.8vw, 36px) | 22–24px | Geologica SemiBold 600 |
-| H3 | 20–22px | 18px | Geologica Medium 500 |
-| Body | 18px | 17px | Onest Regular 400 (line-height 1.65) |
-| Lead / подзаголовок | 20–22px | 18–19px | Onest Regular 400 (line-height 1.55) |
-| UI / button | 16–17px | 16px | Onest Medium 500 |
-| Section marker (`01 / Hero`) | 13px | 12px | PT Mono Regular |
-| Price (пакеты) | 24px | 22px | PT Mono Regular |
-| Footnote / meta | 13–14px | 13px | Onest Regular 400, opacity 0.7 |
+| H1 (Hero) | clamp(48px, 6.5vw, 84px) | 36–44px | Geologica 900 |
+| H1 (другие секции) | clamp(36px, 4.5vw, 56px) | 28–32px | Geologica 700 |
+| H2 | clamp(26px, 2.8vw, 36px) | 22–24px | Geologica 600 |
+| H3 | 20–22px | 18px | Geologica 500 |
+| Body | 18px | 17px | Onest 400 (line-height 1.65) |
+| Lead / подзаголовок | 20–22px | 18–19px | Onest 400 (line-height 1.55) |
+| UI / button | 16–17px | 16px | Onest 500 |
+| Section marker (`01 / Hero`) | 13px | 12px | PT Mono 400 |
+| Price (пакеты) | 24px | 22px | PT Mono 400 |
+| Footnote / meta | 13–14px | 13px | Onest 400, opacity 0.7 |
+
+**Про italic.** Geologica поддерживает курсив через axis CRSV/slnt в variable-шрифте. Использования italic в проекте мало (`.story__epiphany`, `.case__bridge`) — браузер автоматически наклоняет шрифт через synthetic italic, либо подбирает вариант через variation axes. Идеально, без отдельного italic-файла — что и нужно для одностраничного лендинга.
 
 ### Запреты (152-ФЗ + project rules)
 
 - ❌ **НИКАКИХ** ссылок на `fonts.googleapis.com` или `fonts.gstatic.com`.
 - ❌ **НИКАКИХ** внешних CDN (cdnjs, jsDelivr, unpkg) для шрифтов.
 - ❌ **НИКАКИХ** `@import url('https://...')` в CSS.
-- ❌ **НИКАКОГО** Fontsource-импорта по сети — только npm-пакет, отдающий локальные файлы (но проще скачать руками).
-- ❌ **Inter, Roboto, Arial, Helvetica, Space Grotesk, IBM Plex** — не использовать ни как основной, ни как fallback верхнего уровня. Только в системных fallback-цепочках после кириллических Geologica/Onest.
+- ❌ **НИКАКОГО** Fontsource-импорта по сети — шрифты уже в репо локально.
+- ❌ **Inter, Roboto, Arial, Helvetica, Space Grotesk, IBM Plex** — не использовать ни как основной, ни как fallback верхнего уровня. Только в системных fallback-цепочках после Geologica/Onest.
 - ✅ Только локальная отдача с того же домена.
 
 ---
@@ -714,7 +651,7 @@ h1, h2, h3, .display, blockquote { font-family: var(--font-display); }
 3. Все 10 промптов отправлять в одном диалоге внутри Lovable. Не открывать новый чат на каждый промпт — модель потеряет контекст.
 4. Порядок строгий: 1 → 10. В Промпте 1 явно прописать «no React, no Tailwind, vanilla only».
 5. После Промпта 10 — экспортировать проект через GitHub-sync.
-6. Перед публикацией заполнить вручную: `[ИНН_ЗАПОЛНИТЬ]` в трёх юр. документах, `WEBHOOK_URL` и `METRIKA_ID` в `assets/js/constants.js`, положить WOFF2-шрифты Geologica + Onest + PT Mono в `/assets/fonts/`, подать уведомление в РКН.
+6. Перед публикацией заполнить вручную: `[ИНН_ЗАПОЛНИТЬ]` в трёх юр. документах, `WEBHOOK_URL` и `METRIKA_ID` в `assets/js/constants.js`, подать уведомление в РКН. Шрифты (Geologica, Onest, PT Mono) уже в `/assets/fonts/` — класть не нужно.
 
 ---
 

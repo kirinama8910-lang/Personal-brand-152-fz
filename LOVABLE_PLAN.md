@@ -30,7 +30,7 @@ Lovable по умолчанию генерирует **React + Vite + Tailwind**
 
 - `index.html` — скелет страницы с 12 пустыми семантическими секциями (id от `hero` до `footer`), мета-тегами, CSP-заголовком, базовым `<head>`.
 - `assets/css/main.css` — CSS-переменные палитры, `@font-face` для Geologica + Onest + PT Mono, editorial-сетка с нумерацией секций, базовая типографика.
-- `assets/fonts/` — папка-плейсхолдер (WOFF2-файлы пользователь положит сам перед запуском).
+- `assets/fonts/` — уже содержит Geologica-Variable.ttf, Onest-Variable.ttf, PTMono-Regular.ttf и три файла лицензии OFL. Дополнительно ничего класть не нужно.
 
 **Опора на SPEC.md:** §1 (Резюме), §5 (12 секций), §6 (Slow Editorial Print, палитра, принципы), §7 (Geologica + Onest + PT Mono — полные `@font-face`), §8 (152-ФЗ чеклист), §10 (`#quiz` точка монтирования).
 
@@ -50,6 +50,14 @@ Lovable по умолчанию генерирует **React + Vite + Tailwind**
 Никаких CDN, никаких внешних библиотек.
 
 Контекст: SPEC.md загружен в этот чат. Опирайся на §1, §5, §6, §7, §8, §10.
+
+ШРИФТЫ — УЖЕ В РЕПОЗИТОРИИ:
+В /assets/fonts/ лежат готовые TTF-файлы:
+— Geologica-Variable.ttf — variable шрифт, веса 100–900 (display)
+— Onest-Variable.ttf — variable шрифт, веса 100–900 (body)
+— PTMono-Regular.ttf — обычный mono (для нумерации секций и цен)
+Плюс три файла лицензии OFL (трогать не нужно, требование SIL OFL 1.1).
+Дополнительно ничего класть не надо.
 
 ФАЙЛ 1 — index.html
 
@@ -94,11 +102,35 @@ Lovable по умолчанию генерирует **React + Vite + Tailwind**
    --section-gap-mobile:80px;
    --content-max:65ch;
 
-2. Одиннадцать @font-face блоков (полностью, см. SPEC §7):
-   Geologica: 400 / 500 / 600 / 700 / 900 / italic 400 / italic 700
-   Onest: 400 / 500 / 700
-   PT Mono: 400
-   Все с url('/assets/fonts/...woff2') format('woff2'); font-display: swap.
+2. Три @font-face блока для variable-шрифтов (см. SPEC §7):
+   — Geologica: один файл /assets/fonts/Geologica-Variable.ttf на веса 100–900.
+   — Onest: один файл /assets/fonts/Onest-Variable.ttf на веса 100–900.
+   — PT Mono: один файл /assets/fonts/PTMono-Regular.ttf, weight 400.
+   Используй format('truetype-variations') + format('truetype') как fallback:
+
+   @font-face {
+     font-family: 'Geologica';
+     src: url('/assets/fonts/Geologica-Variable.ttf') format('truetype-variations'),
+          url('/assets/fonts/Geologica-Variable.ttf') format('truetype');
+     font-weight: 100 900;
+     font-style: normal;
+     font-display: swap;
+   }
+   @font-face {
+     font-family: 'Onest';
+     src: url('/assets/fonts/Onest-Variable.ttf') format('truetype-variations'),
+          url('/assets/fonts/Onest-Variable.ttf') format('truetype');
+     font-weight: 100 900;
+     font-style: normal;
+     font-display: swap;
+   }
+   @font-face {
+     font-family: 'PT Mono';
+     src: url('/assets/fonts/PTMono-Regular.ttf') format('truetype');
+     font-weight: 400;
+     font-style: normal;
+     font-display: swap;
+   }
 
 3. Базовые стили:
    * { box-sizing: border-box; }
@@ -145,9 +177,6 @@ Lovable по умолчанию генерирует **React + Vite + Tailwind**
 — НЕТ скруглений (border-radius: 0 везде кроме круглых форм — аватары, чекбоксы).
 — НЕТ box-shadow.
 — НЕТ Inter, Roboto, Arial, Helvetica, Space Grotesk, IBM Plex даже как fallback верхнего уровня.
-
-ВАЖНО ПРО ШРИФТЫ:
-WOFF2-файлы я положу руками. Создай корректные @font-face с правильными путями, файлы пока могут отсутствовать — это нормально.
 
 На выходе создай: index.html и assets/css/main.css в репозитории.
 В чат продублируй основные блоки кода для проверки.
@@ -519,6 +548,7 @@ CSS (блок /* === Quiz section === */):
 ## Промпт 6 — Пакеты (секция 6) + 152-ФЗ блок (секция 7)
 
 **Что получаем на выходе:**
+
 - Секция `#packages` — три фиксированных пакета **Эксперт / Студия / Поток**, без soft surfaces (тонкая рамка, без скруглений), 3-этапная оплата 30/40/30. Каждый пакет содержит слои 5–8 Value Stack из §4.
 - Секция `#trust-152fz` — блок-дифференциатор. **Первым пунктом — «Данные клиентов не утекают» (тайна клиента, для психолога Елены)**. Далее 5 пунктов общего блока. Указание на штраф **до 6 млн ₽**.
 
@@ -574,7 +604,7 @@ CSS (блок /* === Quiz section === */):
 
       <article class="package package--flow">
         <h3 class="package__name">Поток</h3>
-        <p class="package__for">Для школы/практики &gt;5 человек или нескольких каналов лидов</p>
+        <p class="package__for">Для школы/практики >5 человек или нескольких каналов лидов</p>
         <p class="package__price">от 350 000 ₽</p>
         <p class="package__duration">3 недели</p>
         <ul class="package__features">
@@ -696,6 +726,7 @@ CSS (блок /* === Trust 152-FZ === */):
 ## Промпт 7 — Future Pacing (8) + FAQ (9) + Кто я (10)
 
 **Что получаем на выходе:**
+
 - `#future-pacing` — две колонки: «Утро Елены (психолог)» и «Утро Анны (студия)», по 2 сцены в каждой.
 - `#faq` — 8 вопросов через `<details>/<summary>`, без JS. Включая фиксированный ответ на «работали ли с моей нишей» (без PORTFOLIO_PLACEHOLDER).
 - `#about` — личная история Марины + 3 подтверждённых результата + фото.
@@ -875,6 +906,7 @@ CSS (/* === About === */):
 ## Промпт 8 — Финальный CTA (11) + Footer (12) + Cookie-banner
 
 **Что получаем на выходе:**
+
 - `#cta-final` — закрывающий аргумент с loss-aversion и ссылкой на эпифанию (не повтор Hero).
 - `#footer` — три блока (юр-документы, контакты, реквизиты оператора), кнопка «Управление согласиями».
 - Cookie-banner на чистом Vanilla JS: всплывает на первом визите, равные кнопки, settings-modal с раздельными чекбоксами, динамическая инжекция Метрики после согласия.
@@ -1271,18 +1303,18 @@ Cookie banner — кнопки в столбец на 320px.
 
 ## Привязка скиллов 152-ФЗ к промптам — сводная таблица
 
-| Промпт | Применённые скиллы | Что взято |
-|--------|--------------------|-----------|
-| 1. Каркас | core-init, technical-requirements, hosting-rkn | Локальные шрифты `@font-face`, CSP-meta, `/assets/`-структура под РФ-хостинг, никаких CDN |
-| 2. Hero | core-init | Никаких трекеров на CTA, голая `<a>` |
-| 3. Боль | — | Чистый копирайт |
-| 4. Эпифания + Решение | — | Чистый копирайт + editorial-вёрстка |
-| 5. Кейс + Квиз | consent-forms-part-1, consent-forms-part-2 (Vanilla JS-принципы) | Самопроверка fallback-формы внутри встроенного квиза |
-| 6. Пакеты + 152-ФЗ блок | legal-docs, consent-forms-part-1 | Ссылки на 3 юр. документа, формулировка согласия под пакетами |
-| 7. Future Pacing + FAQ + Кто я | — | Чистый копирайт |
-| 8. CTA + Footer + Cookie-banner | cookie-banner-part-1, cookie-banner-part-2 (Vanilla JS), legal-docs, consent-forms-part-1 | Полный Vanilla JS банner, равные кнопки, динамическая Метрика, footer с тремя ссылками |
-| 9. 152-ФЗ аудит | audit, checklists-and-fines, cookie-banner-part-1 (повтор), consent-forms-part-1 (повтор) | grep-команда, чеклист, таблица штрафов |
-| 10. Мобильная адаптация | — *(только SPEC §6 + docs/quiz-spec.md §11)* | mobile-specifics.md из 152-ФЗ НЕ применяется |
+| Промпт                              | Применённые скиллы                                                                   | Что взято                                                                                                                            |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. Каркас                           | core-init, technical-requirements, hosting-rkn                                                        | Локальные шрифты `@font-face`, CSP-meta, `/assets/`-структура под РФ-хостинг, никаких CDN     |
+| 2. Hero                                   | core-init                                                                                             | Никаких трекеров на CTA, голая `<a>`                                                                                 |
+| 3. Боль                               | —                                                                                                    | Чистый копирайт                                                                                                                |
+| 4. Эпифания + Решение      | —                                                                                                    | Чистый копирайт + editorial-вёрстка                                                                                     |
+| 5. Кейс + Квиз                    | consent-forms-part-1, consent-forms-part-2 (Vanilla JS-принципы)                              | Самопроверка fallback-формы внутри встроенного квиза                                                  |
+| 6. Пакеты + 152-ФЗ блок       | legal-docs, consent-forms-part-1                                                                      | Ссылки на 3 юр. документа, формулировка согласия под пакетами                              |
+| 7. Future Pacing + FAQ + Кто я        | —                                                                                                    | Чистый копирайт                                                                                                                |
+| 8. CTA + Footer + Cookie-banner           | cookie-banner-part-1, cookie-banner-part-2 (Vanilla JS), legal-docs, consent-forms-part-1             | Полный Vanilla JS банner, равные кнопки, динамическая Метрика, footer с тремя ссылками |
+| 9. 152-ФЗ аудит                    | audit, checklists-and-fines, cookie-banner-part-1 (повтор), consent-forms-part-1 (повтор) | grep-команда, чеклист, таблица штрафов                                                                           |
+| 10. Мобильная адаптация | —*(только SPEC §6 + docs/quiz-spec.md §11)*                                                | mobile-specifics.md из 152-ФЗ НЕ применяется                                                                                |
 
 **Не применены вовсе:** `mobile-specifics.md`, `saas-specifics.md`, `ecommerce-specifics.md`.
 
@@ -1300,7 +1332,7 @@ Cookie banner — кнопки в столбец на 320px.
   - `[ИНН_ЗАПОЛНИТЬ]` в `consent.html`, `privacy-policy.html`, `cookie-policy.html`.
   - `WEBHOOK_URL` и `METRIKA_ID` в `assets/js/constants.js`.
   - `window.METRIKA_ID = N` в `<head>` index.html.
-  - Положить WOFF2-файлы Geologica + Onest + PT Mono в `/assets/fonts/`.
+  - Шрифты Geologica + Onest + PT Mono уже лежат в `/assets/fonts/` — дополнительно класть не нужно.
   - Создать бота `@KirinaAI_bot` через `@BotFather`.
   - Подать уведомление в РКН по [pd.rkn.gov.ru](https://pd.rkn.gov.ru).
 

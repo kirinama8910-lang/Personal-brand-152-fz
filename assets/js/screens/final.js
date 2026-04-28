@@ -41,7 +41,7 @@ export function renderFinal(root, { state, onSubmit }) {
     <a class="quiz-primary quiz-tg-cta" href="${deepLink}" target="_blank" rel="noopener noreferrer">
       Получить точный расчёт и план за 15 минут в Telegram
     </a>
-    <p class="quiz-muted quiz-final-consent">Нажимая кнопку, вы соглашаетесь с <a href="/privacy/">Политикой конфиденциальности</a>.</p>
+    <p class="quiz-muted quiz-final-consent">Нажимая кнопку, вы соглашаетесь с <a href="/privacy-policy.html">Политикой конфиденциальности</a>.</p>
     <div class="quiz-what-next">
       <p><strong>Что получите в ответ:</strong></p>
       <ul>
@@ -83,7 +83,7 @@ function mountFallbackForm(slot, onSubmit, ctx) {
       </label>
       <label class="quiz-checkbox">
         <input type="checkbox" name="consent" required />
-        <span>Я даю <a href="/consent/">Согласие на обработку персональных данных</a> и принимаю <a href="/privacy/">Политику конфиденциальности</a></span>
+        <span>Я даю <a href="/consent.html">Согласие на обработку персональных данных</a> и принимаю <a href="/privacy-policy.html">Политику конфиденциальности</a></span>
       </label>
       <input type="text" name="ignore_me" tabindex="-1" autocomplete="off" class="quiz-hp" aria-hidden="true" />
       <button type="submit" class="quiz-primary" disabled>Отправить</button>

@@ -20,7 +20,7 @@ export function renderExit(root, { reason, onSubmit }) {
         </label>
         <label class="quiz-checkbox">
           <input type="checkbox" name="consent" required />
-          <span>Я даю <a href="/consent/">Согласие</a> и принимаю <a href="/privacy/">Политику</a></span>
+          <span>Я даю <a href="/consent.html">Согласие</a> и принимаю <a href="/privacy-policy.html">Политику</a></span>
         </label>
         <input type="text" name="ignore_me" tabindex="-1" autocomplete="off" class="quiz-hp" aria-hidden="true" />
         <button type="submit" class="quiz-primary" disabled>Отправить</button>

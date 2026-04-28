@@ -1,0 +1,243 @@
+/* === Variables (Dark Neon Tech) === */
+:root {
+  /* Фон */
+  --bg:           #080C16;
+  --bg-card:      #0D1220;
+  --bg-card-hover:#101828;
+
+  /* Текст */
+  --ink:          #F0EDE6;
+  --ink-muted:    rgba(240, 237, 230, 0.45);
+  --ink-faint:    rgba(240, 237, 230, 0.2);
+
+  /* Акценты */
+  --neon:         #00C8FF;
+  --neon-dim:     rgba(0, 200, 255, 0.15);
+  --neon-glow:    rgba(0, 200, 255, 0.25);
+  --violet:       #7C3AED;
+  --violet-dim:   rgba(124, 58, 237, 0.15);
+  --mark:         #F6E057;
+  --mark-ink:     #080C16;
+
+  /* Разделители */
+  --rule:         rgba(0, 200, 255, 0.1);
+  --rule-solid:   rgba(240, 237, 230, 0.08);
+
+  /* Шрифты — НЕ МЕНЯТЬ, все локальные */
+  --font-display: 'Geologica', Georgia, serif;
+  --font-body:    'Onest', -apple-system, sans-serif;
+  --font-mono:    'PT Mono', ui-monospace, monospace;
+
+  /* Отступы */
+  --section-gap:        100px;
+  --section-gap-mobile: 64px;
+  --content-max:        64ch;
+}
+
+/* === Fonts (SPEC §7) === */
+@font-face {
+  font-family: 'Geologica';
+  src: url('/assets/fonts/Geologica-Variable.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Onest';
+  src: url('/assets/fonts/Onest-Variable.ttf') format('truetype-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PT Mono';
+  src: url('/assets/fonts/PTMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* === Reset & base === */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 400 17px/1.65 var(--font-body);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Сетка-фон (grid overlay) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,200,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,200,255,.035) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Все секции поверх сетки */
+section, footer, nav { position: relative; z-index: 1; }
+
+h1, h2, h3, blockquote {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0;
+  color: var(--ink);
+}
+p  { margin: 0; color: var(--ink); }
+a  { color: var(--neon); text-decoration: none; }
+img { max-width: 100%; height: auto; display: block; }
+:focus-visible { outline: 2px solid var(--neon); outline-offset: 3px; }
+
+/* Контейнер */
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+@media (max-width: 768px) {
+  .container { padding: 0 20px; }
+}
+
+/* Секции */
+section {
+  padding: var(--section-gap) 0;
+  border-bottom: 1px solid var(--rule-solid);
+}
+@media (max-width: 768px) {
+  section { padding: var(--section-gap-mobile) 0; }
+}
+
+/* Eyebrow-метки (нумерация секций) */
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(0,200,255,.5);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* Заголовки секций */
+.section-title {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 40px;
+}
+
+/* Неоновый акцент в тексте */
+.neon { color: var(--neon); text-shadow: 0 0 24px rgba(0,200,255,.4); }
+
+/* Жёлтая подсветка */
+.mark {
+  background: var(--mark);
+  color: var(--mark-ink);
+  padding: 1px 10px;
+  display: inline;
+  border-radius: 2px;
+}
+
+/* Карточки */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 24px;
+  transition: border-color .25s, background .25s, transform .25s, box-shadow .25s;
+}
+.card:hover {
+  border-color: rgba(0,200,255,.4);
+  background: var(--bg-card-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 32px rgba(0,200,255,.1);
+}
+
+/* Иконки в карточках */
+.card-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--neon-dim);
+  border: 1px solid rgba(0,200,255,.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.card-icon svg { width: 20px; height: 20px; stroke: var(--neon); fill: none; stroke-width: 1.5; }
+
+/* Кнопки — основная */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 36px;
+  min-height: 52px;
+  background: linear-gradient(135deg, #0080FF, #00C8FF);
+  color: #080C16;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 0 20px rgba(0,200,255,.25);
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(0,200,255,.45);
+  color: #080C16;
+}
+
+/* Кнопки — ghost */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 36px;
+  min-height: 52px;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 16px;
+  border: 1px solid var(--ink-faint);
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover {
+  border-color: var(--neon);
+  color: var(--neon);
+}
+
+/* Scroll-анимация (добавляется через JS) */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Разделители */
+.rule-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rule), transparent);
+  margin: 0;
+  border: none;
+}

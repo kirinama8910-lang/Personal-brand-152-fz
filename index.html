@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Марина Кирина — сайт + Telegram-бот + автоматизация на n8n</title>
+  <meta name="description" content="Лендинг фрилансера для практиков-одиночек и владельцев студий: связка «сайт + Telegram-бот + автоматизация на n8n» за 2–3 недели, по фиксированной цене, с обязательством по 152-ФЗ.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://mc.yandex.ru; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' https://mc.yandex.ru; connect-src 'self' https://mc.yandex.ru https://t.me">
+  <!-- TODO: добавить домен webhook в connect-src когда будет известен (сейчас constants.js WEBHOOK_URL = '__PLACEHOLDER__') -->
+  <link rel="stylesheet" href="./assets/css/main.css">
+  <style>
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+  <section id="hero" data-section="01" data-title="Hero">
+    <h2>Секция 1 — Hero (наполнение в Task 1)</h2>
+  </section>
+  <section id="pain" data-section="02" data-title="Узнаёте?">
+    <h2>Секция 2 — Боль (наполнение в Task 2)</h2>
+  </section>
+  <section id="story" data-section="03" data-title="Где теряются деньги">
+    <h2>Секция 3 — Story (наполнение в Task 3)</h2>
+  </section>
+  <section id="case" data-section="04" data-title="Кейс">
+    <h2>Секция 4 — Кейс (наполнение в Task 4)</h2>
+  </section>
+  <section id="quiz" data-section="05" data-title="Квиз">
+    <h2>Секция 5 — Квиз (наполнение в Task 4)</h2>
+  </section>
+  <section id="packages" data-section="06" data-title="Пакеты">
+    <h2>Секция 6 — Пакеты (наполнение в Task 5)</h2>
+  </section>
+  <section id="trust-152fz" data-section="07" data-title="152-ФЗ">
+    <h2>Секция 7 — 152-ФЗ (наполнение в Task 5)</h2>
+  </section>
+  <section id="future-pacing" data-section="08" data-title="Через 3 недели">
+    <h2>Секция 8 — Future Pacing (наполнение в Task 6)</h2>
+  </section>
+  <section id="faq" data-section="09" data-title="FAQ">
+    <h2>Секция 9 — FAQ (наполнение в Task 6)</h2>
+  </section>
+  <section id="about" data-section="10" data-title="Кто я">
+    <h2>Секция 10 — Кто я (наполнение в Task 6)</h2>
+  </section>
+  <section id="cta-final" data-section="11" data-title="Финальный CTA">
+    <h2>Секция 11 — Финальный CTA (наполнение в Task 7)</h2>
+  </section>
+  <footer id="footer" data-section="12" data-title="Footer">
+    <h2>Секция 12 — Footer (наполнение в Task 7)</h2>
+  </footer>
+  <!-- cookie-banner будет добавлен в Task 7 -->
+  <script>
+(function(){
+  const els = document.querySelectorAll('section, .card, .hero__title, .hero__lead');
+  const io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  els.forEach(function(el){ el.classList.add('reveal'); io.observe(el); });
+})();
+  </script>
+</body>
+</html>

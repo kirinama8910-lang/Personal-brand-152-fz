@@ -9,8 +9,8 @@
 **Tech Stack:**
 - HTML5 + CSS3 + Vanilla ES6 (никаких React/Vue/фреймворков)
 - Шрифты: Geologica + Onest + PT Mono (variable-TTF, локально в `/assets/fonts/`)
-- Палитра: `#F4EFE6` бумага, `#111111` чернила, `#1A2B6B` ультрамарин, `#F6E057` highlight
-- Дизайн-направление: Slow Editorial Print (асимметричная сетка, нумерация секций mono-шрифтом, тонкие линии вместо теней)
+- Палитра: `#080C16` фон, `#00C8FF` неон, `#7C3AED` фиолетовый, `#F6E057` highlight, `#F0EDE6` текст
+- Дизайн-направление: Dark Neon Tech (тёмный фон #080C16, неоновый акцент #00C8FF, CSS grid-overlay, card hover glow, fadeUp scroll animation)
 - 152-ФЗ: локальные шрифты, динамическая Метрика после согласия, cookie-banner с равными кнопками
 - Хостинг: Timeweb (РФ)
 
@@ -33,6 +33,18 @@
 
 ---
 
+## Контрольные точки между задачами
+
+**После Task 0:** открыть `index.html` в браузере → должны быть видны 12 серых блоков с заголовками. Проверить Network tab: все три `.ttf` шрифта загрузились (200 OK, не 404). Если нет — **STOP**.
+
+**После Task 4:** открыть страницу, проскроллить к секции «Посчитайте свои потери». Внутри `#quiz-root` должен отрендериться реальный квиз (первый вопрос). Открыть DevTools → Console: не должно быть ошибок CSP или 404 на `quiz.css`/`quiz-embed.js`. Если квиз не появился — **STOP**.
+
+**После Task 7:** очистить localStorage, перезагрузить страницу. Должен всплыть cookie-баннер. В Network tab НЕ должно быть запросов к `mc.yandex.ru` до клика «Принять все». После клика «Принять все» — Метрика должна загрузиться. Если Метрика грузится без согласия — **STOP**, нарушение 152-ФЗ.
+
+**Task 8 (аудит):** запускать **отдельным сабагентом** с чистым контекстом, не тем, который писал Task 0–7.
+
+---
+
 ## How to dispatch subagents
 
 Каждая задача снабжена секцией **"Subagent prompt"** — это полный текст, который ты копируешь в `Agent` tool вызов.
@@ -50,6 +62,20 @@ Agent({
 Сабагент должен видеть весь репозиторий: SPEC.md, CLAUDE.md, docs/quiz-spec.md, существующие index.html / main.css (если уже созданы предыдущими задачами).
 
 Между задачами рекомендуется делать review через `superpowers:requesting-code-review` или просто читать diff.
+
+---
+
+## Task -1: Pre-flight check (выполняется человеком, не сабагентом)
+
+Перед запуском Task 0 владелец проекта должен убедиться, что:
+
+- [ ] `quiz.html`, `assets/css/quiz.css` и все `assets/js/quiz-*.js` файлы лежат в основном репо (не только в `sverhnovaya/`)
+- [ ] `consent.html`, `privacy-policy.html`, `cookie-policy.html` существуют в корне и содержат реальный юридический текст (не Lorem ipsum)
+- [ ] Все три шрифта и три OFL.txt лежат в `assets/fonts/`
+- [ ] `photo.png` в корне
+- [ ] `SPEC.md`, `CLAUDE.md`, `docs/quiz-spec.md` существуют
+
+Если хоть один пункт не выполнен — **STOP**, не запускать Task 0.
 
 ---
 
@@ -78,7 +104,8 @@ Agent({
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Марина Кирина — сайт + Telegram-бот + автоматизация на n8n</title>
   <meta name="description" content="Лендинг фрилансера для практиков-одиночек и владельцев студий: связка «сайт + Telegram-бот + автоматизация на n8n» за 2–3 недели, по фиксированной цене, с обязательством по 152-ФЗ.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' https://mc.yandex.ru https://t.me">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://mc.yandex.ru; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' https://mc.yandex.ru; connect-src 'self' https://mc.yandex.ru https://t.me">
+  <!-- TODO: добавить домен webhook в connect-src когда будет известен (сейчас constants.js WEBHOOK_URL = '__PLACEHOLDER__') -->
   <link rel="stylesheet" href="/assets/css/main.css">
   <style>
     html { scroll-behavior: smooth; }
@@ -150,16 +177,14 @@ Agent({
 /* === Fonts (SPEC §7) === */
 @font-face {
   font-family: 'Geologica';
-  src: url('/assets/fonts/Geologica-Variable.ttf') format('truetype-variations'),
-       url('/assets/fonts/Geologica-Variable.ttf') format('truetype');
+  src: url('/assets/fonts/Geologica-Variable.ttf') format('truetype-variations');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
   font-family: 'Onest';
-  src: url('/assets/fonts/Onest-Variable.ttf') format('truetype-variations'),
-       url('/assets/fonts/Onest-Variable.ttf') format('truetype');
+  src: url('/assets/fonts/Onest-Variable.ttf') format('truetype-variations');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -1764,8 +1789,8 @@ Commit: "feat(landing): Future Pacing + FAQ + About".
         <li><a href="/privacy-policy.html">Политика конфиденциальности</a></li>
         <li><a href="/consent.html">Согласие на обработку персональных данных</a></li>
         <li><a href="/cookie-policy.html">Политика использования cookie</a></li>
-        <li><button type="button" id="manage-consent" class="footer__manage">Управление согласиями</button></li>
       </ul>
+      <button type="button" id="manage-consent" class="footer__manage">Управление согласиями</button>
     </div>
     <div class="footer__col">
       <h3 class="footer__col-title">Связь</h3>
@@ -1959,6 +1984,7 @@ Commit: "feat(landing): Future Pacing + FAQ + About".
   color: var(--paper);
 }
 .footer__col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.footer__manage { margin-top: 12px; padding: 0; }
 .footer__col a, .footer__manage {
   color: var(--paper);
   opacity: 0.8;

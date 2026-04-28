@@ -610,48 +610,45 @@ h1, h2, h3, .display, blockquote { font-family: var(--font-display); }
 
 ---
 
-## 11. План промптов для Lovable — финальная разбивка
+## 11. План реализации — 10 задач для Claude Code subagents
 
-> Полные тексты всех 10 промптов, готовые к копированию, лежат в [LOVABLE_PLAN.md](LOVABLE_PLAN.md) и в Word-документе [Lovable_Plan.docx](Lovable_Plan.docx). Здесь — только сводная таблица для ориентации.
+> Полный пошаговый план в формате `superpowers:writing-plans` лежит в [docs/superpowers/plans/2026-04-28-landing-implementation.md](docs/superpowers/plans/2026-04-28-landing-implementation.md). Каждая задача снабжена готовым **Subagent prompt**, который копируется в `Agent` tool вызов.
 
-Лендинг реализуется в [Lovable](https://lovable.dev/) через 10 последовательных промптов. Подход: проект Lovable создаётся с подключением GitHub-репозитория Personal-brand-152-fz, SPEC.md загружается в первый чат, все 10 промптов отправляются в одном диалоге строго по порядку 1 → 10.
+Лендинг реализуется через **Claude Code** с **subagent-driven-development**: главный агент диспетчирует сабагентов по одной задаче, между задачами делает review. Все правки идут прямо в существующем репозитории Personal-brand-152-fz — никакого Lovable, никакого слияния репозиториев.
 
-**Важная техническая особенность Lovable:** по умолчанию инструмент генерирует React + Vite + Tailwind проекты. Нам нужен Vanilla HTML/CSS/JS (как зафиксировано в §6 и §7). Промпт 1 явно противостоит этому дефолту: «pure HTML/CSS/JS, no React, no Tailwind, no framework». Если Lovable начинает сопротивляться — повторять уточнение в каждом следующем промпте.
+### Сводная таблица задач
 
-### Сводная таблица промптов
-
-| # | Промпт | Что получаем | Опора на SPEC.md | 152-ФЗ скиллы |
+| # | Задача | Что получаем | Опора на SPEC.md | 152-ФЗ скиллы |
 |---|--------|--------------|------------------|----------------|
-| 1 | Каркас и дизайн-система | `index.html` со скелетом 12 секций, `assets/css/main.css` с CSS-переменными и `@font-face`, `assets/fonts/` | §1, §5, §6, §7, §8, §10 | core-init, technical-requirements, hosting-rkn |
-| 2 | Hero (секция 1) | Заголовок, подзаголовок, CTA → `#quiz`, аватар 48px, микрофутер | §0, §4 (Hook), §5 секция 1 | core-init (без трекеров) |
-| 3 | Боль (секция 2) | Две колонки: голос Елены + голос Анны | §3 (портреты, диалог 23:47, топ-3 боли), §5 секция 2 | — |
-| 4 | Эпифания + Решение (секция 3) | Лонгрид Story → Offer → Value Stack 8 слоёв, фото Марины 400px | §0 (фото), §4 (Story, Offer, Value Stack), §5 секция 3, §6 | — |
-| 5 | Кейс (4) + Квиз (5) | Кейс «Проблема → Действие → Результат» с PORTFOLIO_PLACEHOLDER, точка монтирования `#quiz-root`, подключение `quiz.css` и `quiz-embed.js` | §0 (плейсхолдеры), §3 (топ-3 боли), §5 секции 4–5, §10 (встройка), `docs/quiz-spec.md` §6 | consent-forms-part-1, consent-forms-part-2 (Vanilla JS-принципы) — самопроверка fallback-формы |
-| 6 | Пакеты (6) + 152-ФЗ блок (7) | Три пакета с фикс-ценой (soft surfaces) + блок-дифференциатор по 152-ФЗ с ссылками на 3 юр. документа | §4 (Value Stack), §5 секции 6–7, §6, §8, §9, §0 | legal-docs, consent-forms-part-1 |
-| 7 | Future Pacing (8) + FAQ (9) + Кто я (10) | 4 сцены «через 3 недели», 6–8 FAQ как `<details>`, секция Кто я с фото и подтверждёнными результатами | §0 (Кто я), §3 (возражения), §4 (Future Pacing), §5 секции 8–10 | — |
-| 8 | Финальный CTA (11) + Footer (12) + Cookie-banner | Повторный CTA, footer с 3 юр-ссылками + manage-consent + реквизитами оператора, Vanilla JS cookie-banner с равными кнопками и динамической Метрикой | §0 (оператор), §4 (Hook), §5 секции 11–12, §8, §9 | cookie-banner-part-1, cookie-banner-part-2 (Vanilla JS-принципы), legal-docs, consent-forms-part-1 |
-| 9 | 152-ФЗ аудит | Прогон по чеклисту §8 + полному чеклисту скилла, grep-команда, список нарушений с правкой, таблица штрафов | §8, §9 | audit, checklists-and-fines, cookie-banner-part-1 (повтор), consent-forms-part-1 (повтор) |
-| 10 | Мобильная адаптация и полировка | Touch-targets ≥ 52px, safe-area-inset, контраст ≥ 4.5:1, `:focus-visible`, `prefers-reduced-motion`, проход по 320/375/768/1024 | §6, `docs/quiz-spec.md` §11 | — *(mobile-specifics.md НЕ применяется — это про нативные мобильные приложения)* |
+| 0 | Каркас и дизайн-система | `index.html` со скелетом 12 секций, `assets/css/main.css` с CSS-переменными, тремя `@font-face`, editorial-grid, нумерацией секций, SVG-noise overlay | §1, §5, §6, §7, §8, §10 | core-init, technical-requirements, hosting-rkn |
+| 1 | Hero (секция 1) | Парадокс-хедлайн «Лучшее, что вы сделаете…», подзаголовок, CTA «Посчитать за 2 минуты», микрофутер, редакторская подпись в углу | §0, §4 (Hook), CLAUDE.md | core-init |
+| 2 | Pain (секция 2) | Заголовок «Незаменимость в полевых условиях…», лид + две колонки (Елена + Анна) | §3, §5 «Уточнения → Секция 2» | — |
+| 3 | Story (секция 3) | Две сцены (салон 23:47 + эксперт 19:30), метафора щелей, эпифания, оффер, Value Stack 1–4, фото 400px | §0, §4 (Story, Offer, Value Stack 1–4) | — |
+| 4 | Кейс (4) + Квиз (5) | Обезличенный полу-кейс «×2 за 6 недель» (без PORTFOLIO_PLACEHOLDER на main slot), точка монтирования `#quiz-root`, подключение `quiz.css` + `quiz-embed.js` | §5 «Уточнения → Секция 4», §10, `docs/quiz-spec.md` §6 | consent-forms-part-1, consent-forms-part-2 (Vanilla JS-принципы) — самопроверка fallback-формы внутри quiz.html |
+| 5 | Пакеты (6) + 152-ФЗ блок (7) | Эксперт / Студия / Поток + 152-ФЗ блок с пунктом «тайна клиента» первым, штраф «до 6 млн ₽» | §5 «Уточнения → Секции 6, 7», §4 Value Stack 5–8, §8, §9 | legal-docs, consent-forms-part-1 |
+| 6 | Future Pacing (8) + FAQ (9) + Кто я (10) | Две колонки FP (Елена + Анна), 8 FAQ через `<details>`, About с фото + биография + 3 результата | §3, §4 (Future Pacing), §5 «Уточнения → Секция 9», §0 | — |
+| 7 | Финальный CTA (11) + Footer (12) + Cookie-banner | Закрывающий CTA с loss-aversion, footer с 3 юр-ссылками + manage-consent, Vanilla JS cookie-banner с равными кнопками | §5 «Уточнения → Секция 11», §0, §8, §9 | cookie-banner-part-1, cookie-banner-part-2 (Vanilla JS), legal-docs, consent-forms-part-1 |
+| 8 | 152-ФЗ аудит | Прогон по чеклистам §8 + checklists-and-fines, grep-команда, отчёт о нарушениях, таблица штрафов | §8, §9 | audit, checklists-and-fines |
+| 9 | Мобильная адаптация | Touch-targets ≥ 56px, safe-area-inset, контраст ≥ 4.5:1, `:focus-visible`, `prefers-reduced-motion` | §6, `docs/quiz-spec.md` §11 | — *(mobile-specifics.md НЕ применяется)* |
 
 ### Скиллы 152-ФЗ — раскладка применимости
 
 **Применены полностью:** `core-init`, `technical-requirements`, `hosting-rkn`, `cookie-banner-part-1`, `consent-forms-part-1`, `legal-docs`, `audit`, `checklists-and-fines`.
 
-**Применены частично (только Vanilla JS-принципы, без React/Vue/Next-кода):** `cookie-banner-part-2`, `consent-forms-part-2`.
+**Применены частично (только Vanilla JS-принципы):** `cookie-banner-part-2`, `consent-forms-part-2`.
 
 **Не применены — обоснование:**
-- `mobile-specifics.md` — про нативные мобильные приложения (React Native, AppMetrica, AsyncStorage, экран онбординга). Лендинг — веб-сайт; требования к мобильной адаптации (touch-target 52px, safe-area, контраст 4.5:1) идут из `docs/quiz-spec.md` §11 и SPEC §6, не из 152-ФЗ-скилла.
-- `saas-specifics.md` — на лендинге нет личного кабинета, регистрации, удаления аккаунта.
-- `ecommerce-specifics.md` — платежи на лендинге не принимаются, оплата по договору самозанятости офлайн.
+- `mobile-specifics.md` — про нативные мобильные приложения (React Native, AppMetrica). Веб-лендинг; требования к мобильной адаптации идут из `docs/quiz-spec.md` §11 и SPEC §6.
+- `saas-specifics.md` — на лендинге нет личного кабинета.
+- `ecommerce-specifics.md` — платежей на лендинге не принимается.
 
-### Памятка по запуску
+### Как запустить
 
-1. Создать новый проект в Lovable, подключить GitHub-репозиторий Personal-brand-152-fz через интеграцию.
-2. Загрузить SPEC.md в первый чат проекта Lovable. По желанию — также CLAUDE.md и `docs/quiz-spec.md`.
-3. Все 10 промптов отправлять в одном диалоге внутри Lovable. Не открывать новый чат на каждый промпт — модель потеряет контекст.
-4. Порядок строгий: 1 → 10. В Промпте 1 явно прописать «no React, no Tailwind, vanilla only».
-5. После Промпта 10 — экспортировать проект через GitHub-sync.
-6. Перед публикацией заполнить вручную: `[ИНН_ЗАПОЛНИТЬ]` в трёх юр. документах, `WEBHOOK_URL` и `METRIKA_ID` в `assets/js/constants.js`, подать уведомление в РКН. Шрифты (Geologica, Onest, PT Mono) уже в `/assets/fonts/` — класть не нужно.
+1. Открыть Claude Code в папке Personal-brand-152-fz.
+2. Прочитать [docs/superpowers/plans/2026-04-28-landing-implementation.md](docs/superpowers/plans/2026-04-28-landing-implementation.md).
+3. Для каждой задачи (0 → 9 по порядку) вызвать `Agent` tool с готовым промптом из секции **«Subagent prompt»** этой задачи.
+4. Между задачами проверять diff и preview (`start index.html` или Live Server).
+5. Перед публикацией заполнить вручную: `[ИНН_ЗАПОЛНИТЬ]` в трёх юр. документах, `WEBHOOK_URL` и `METRIKA_ID` в `assets/js/constants.js`, подать уведомление в РКН. Шрифты (Geologica, Onest, PT Mono) уже в `/assets/fonts/`.
 
 ---
 

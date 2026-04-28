@@ -45,6 +45,28 @@
 
 ---
 
+## Design Guide — Dark Neon Tech
+
+Этот раздел обязателен для чтения каждым сабагентом перед реализацией.
+Источник правды — SPEC.md §6. Краткое резюме для сабагентов:
+
+ОБЯЗАТЕЛЬНО для каждой секции:
+1. Eyebrow с нумерацией — PT Mono, rgba(0,200,255,.5)
+2. Минимум один элемент с var(--neon) — в заголовке или цифре
+3. Карточки где есть перечисление — класс .card с hover-эффектом
+4. class="reveal" на секции и ключевых блоках
+5. Читать CLAUDE.md — запрещённые слова не использовать
+
+ЗАПРЕЩЕНО:
+- var(--paper), var(--accent), var(--inverted) — удалены
+- Белые фоны, светлые поверхности
+- Google Fonts, CDN-шрифты — только /assets/fonts/
+- Трогать quiz.html, quiz-*.js, quiz.css
+- Трогать юр-документы (consent, privacy-policy, cookie-policy)
+- Трогать photo.png, assets/fonts/
+
+---
+
 ## How to dispatch subagents
 
 Каждая задача снабжена секцией **"Subagent prompt"** — это полный текст, который ты копируешь в `Agent` tool вызов.

@@ -1104,3 +1104,249 @@ section {
   line-height: 1.6;
   margin: 0;
 }
+
+/* === Future Pacing === */
+.fp__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 768px) {
+  .fp__grid { grid-template-columns: 1fr; }
+}
+
+.fp__card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.fp__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.fp__avatar--elena {
+  background: rgba(0,200,255,.1);
+  border: 1px solid rgba(0,200,255,.25);
+  color: #00C8FF;
+}
+.fp__avatar--anna {
+  background: rgba(124,58,237,.1);
+  border: 1px solid rgba(124,58,237,.3);
+  color: #A78BFA;
+}
+
+.fp__card-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+.fp__card-time {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  margin: 0;
+}
+
+.fp__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.fp__item {
+  display: flex;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--ink-muted);
+  line-height: 1.65;
+}
+.fp__arrow {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+/* === FAQ === */
+.faq__list {
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.faq__item {
+  background: var(--bg-card);
+  border: 1px solid var(--rule-solid);
+  border-radius: 8px;
+  transition: border-color .2s;
+}
+.faq__item[open] {
+  border-color: var(--rule);
+}
+
+.faq__question {
+  padding: 20px 24px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  user-select: none;
+}
+.faq__question::-webkit-details-marker { display: none; }
+.faq__question::after {
+  content: '+';
+  font-family: var(--font-mono);
+  font-size: 20px;
+  color: var(--neon);
+  flex-shrink: 0;
+  line-height: 1;
+}
+.faq__item[open] > .faq__question::after {
+  content: '−';
+}
+
+.faq__answer {
+  padding: 0 24px 20px;
+}
+.faq__answer p {
+  color: var(--ink-muted);
+  line-height: 1.65;
+  font-size: 15px;
+  margin: 0;
+}
+
+/* === About === */
+.about__layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 56px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .about__layout { grid-template-columns: 1fr; gap: 32px; }
+}
+
+.about__photo-col {
+  position: sticky;
+  top: 24px;
+}
+@media (max-width: 900px) {
+  .about__photo-col { position: static; }
+}
+
+.about__photo {
+  width: 300px;
+  max-width: 100%;
+  border-radius: 0;
+  filter: grayscale(0.1);
+  display: block;
+}
+
+.about__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 36px);
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+
+.about__status {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin: 0 0 28px;
+}
+
+.about__bio {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 36px;
+}
+.about__bio p {
+  font-size: 16px;
+  color: var(--ink-muted);
+  line-height: 1.65;
+}
+
+/* Результаты */
+.about__results {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.about__result-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.about__result-num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--neon);
+  text-shadow: 0 0 16px rgba(0,200,255,.35);
+  flex-shrink: 0;
+  padding-top: 2px;
+  min-width: 24px;
+}
+.about__result-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  margin: 0 0 2px;
+}
+.about__result-sub {
+  font-size: 13px;
+  color: var(--ink-muted);
+  margin: 0;
+}
+
+/* Контакты */
+.about__contacts {
+  background: var(--bg-card);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.about__contact-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+.about__contact-link:hover { opacity: .8; }
+.about__contact-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-muted);
+  min-width: 60px;
+}
+.about__contact-value {
+  font-size: 15px;
+  color: var(--neon);
+}

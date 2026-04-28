@@ -602,16 +602,6 @@ section {
   margin: 0 0 48px;
   line-height: 1.15;
 }
-.story__layout {
-  display: grid;
-  grid-template-columns: 1fr 380px;
-  gap: 64px;
-  align-items: start;
-}
-@media (max-width: 900px) {
-  .story__layout { grid-template-columns: 1fr; gap: 40px; }
-}
-
 /* Блоки-цитаты (сцены) */
 .story__scene {
   border-left: 2px solid rgba(0,200,255,.25);
@@ -668,34 +658,6 @@ section {
   margin-bottom: 64px;
 }
 
-/* Фото */
-.story__photo-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: sticky;
-  top: 32px;
-}
-.story__photo {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  display: block;
-  border-radius: 0;
-  filter: grayscale(0.15);
-  border: 1px solid var(--rule-solid);
-}
-.story__photo-caption {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--ink-muted);
-  margin-top: 12px;
-  line-height: 1.5;
-}
-@media (max-width: 900px) {
-  .story__photo-col { position: static; }
-  .story__photo { max-width: 100%; }
-}
 
 /* Value Stack 1–4 */
 .story__value-stack {
@@ -754,7 +716,7 @@ section {
 
 /* === Story body (single column) === */
 .story__body {
-  max-width: 680px;
+  width: 100%;
 }
 
 .story__insight {
@@ -881,6 +843,12 @@ section {
 }
 
 /* === Quiz === */
+.quiz-section .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 .quiz-section__eyebrow {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -896,16 +864,21 @@ section {
   color: var(--ink);
   margin: 0 0 20px;
   line-height: 1.15;
+  text-align: center;
 }
 .quiz-section__lead {
   font-size: 18px;
   color: var(--ink-muted);
   line-height: 1.6;
   max-width: 52ch;
-  margin-bottom: 48px;
+  margin-bottom: 24px;
+  text-align: center;
 }
 #quiz-root {
-  min-height: 200px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  min-height: auto;
 }
 
 /* === Packages === */

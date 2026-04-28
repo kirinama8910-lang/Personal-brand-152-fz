@@ -8,6 +8,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://mc.yandex.ru; font-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' https://mc.yandex.ru; connect-src 'self' https://mc.yandex.ru https://t.me">
   <!-- TODO: добавить домен webhook в connect-src когда будет известен (сейчас constants.js WEBHOOK_URL = '__PLACEHOLDER__') -->
   <link rel="stylesheet" href="./assets/css/main.css">
+  <link rel="stylesheet" href="./assets/css/quiz.css">
   <style>
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -624,70 +625,6 @@
       </div><!-- /faq__list -->
     </div>
   </section>
-
-  <!-- === About === -->
-  <section id="about" class="" data-section="10" data-title="Кто я">
-    <div class="container">
-      <p class="section-eyebrow">10 / КТО Я</p>
-      <div class="about__layout">
-
-        <!-- Фото -->
-        <div class="about__photo-col">
-          <img src="./photo.png" alt="Марина Кирина" width="300" loading="lazy" class="about__photo">
-        </div>
-
-        <!-- Текст -->
-        <div class="about__text-col">
-          <h2 class="about__name">Марина Кирина</h2>
-          <p class="about__status">Самозанятая · Пенза · работаю удалённо по всей России</p>
-
-          <div class="about__bio">
-            <p>5 лет руководила отделом из 20 человек внутри Profi.ru. Последние 5 лет — независимый практик: через практику прошло более 100 специалистов разных ниш — психологи, мастера красоты, репетиторы, мастера по ремонту.</p>
-            <p>Сама прошла путь от ручного ведения клиентов в чатах до автоматизации на n8n. 10 лет внутри и рядом с платформой — видела изнутри, где специалисты теряют деньги. Не из-за плохой работы, а из-за того, что бизнес держится только на их присутствии в телефоне.</p>
-            <p>Строю связку «сайт + Telegram-бот + автоматизация на n8n» — убираю ручной труд из воронки «лид → запись».</p>
-          </div>
-
-          <!-- Результаты -->
-          <div class="about__results">
-            <div class="about__result-item">
-              <span class="about__result-num">01</span>
-              <div>
-                <p class="about__result-title">Конверсия отклика ×2</p>
-                <p class="about__result-sub">Психологи на Profi.ru за 6 недель</p>
-              </div>
-            </div>
-            <div class="about__result-item">
-              <span class="about__result-num">02</span>
-              <div>
-                <p class="about__result-title">Поток лидов без потерь</p>
-                <p class="about__result-sub">CRM на n8n + Google Sheets для мастеров по ремонту</p>
-              </div>
-            </div>
-            <div class="about__result-item">
-              <span class="about__result-num">03</span>
-              <div>
-                <p class="about__result-title">Полный цикл коммуникации</p>
-                <p class="about__result-sub">AI-ответы, запись, подтверждения для психологов</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Контакты -->
-          <div class="about__contacts">
-            <a href="https://t.me/marinakirina111" class="about__contact-link" target="_blank" rel="noopener noreferrer">
-              <span class="about__contact-label">Telegram</span>
-              <span class="about__contact-value">@marinakirina111</span>
-            </a>
-            <a href="mailto:kirinama8910@gmail.com" class="about__contact-link">
-              <span class="about__contact-label">Email</span>
-              <span class="about__contact-value">kirinama8910@gmail.com</span>
-            </a>
-          </div>
-
-        </div><!-- /about__text-col -->
-      </div><!-- /about__layout -->
-    </div>
-  </section>
   <section id="cta-final" data-section="11" data-title="Финальный CTA">
     <h2>Секция 11 — Финальный CTA (наполнение в Task 7)</h2>
   </section>
@@ -696,5 +633,6 @@
   </footer>
   <!-- cookie-banner будет добавлен в Task 7 -->
   <script src="./assets/js/reveal.js"></script>
+  <script type="module" src="./assets/js/quiz-embed.js"></script>
 </body>
 </html>

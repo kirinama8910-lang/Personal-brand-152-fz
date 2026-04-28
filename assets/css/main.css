@@ -751,3 +751,130 @@ section {
   line-height: 1.55;
   margin: 0;
 }
+
+/* === Case === */
+.case-section__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(0,200,255,.5);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.case-section__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 3.5vw, 44px);
+  color: var(--ink);
+  margin: 0 0 56px;
+  line-height: 1.15;
+}
+
+/* Центральный стат */
+.case-section__stat-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 64px;
+}
+.case-section__big-num {
+  font-family: var(--font-mono);
+  font-size: clamp(72px, 10vw, 120px);
+  font-weight: 400;
+  color: var(--neon);
+  text-shadow: 0 0 24px rgba(0,200,255,.4);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.case-section__big-label {
+  font-size: 16px;
+  color: var(--ink-muted);
+  text-align: center;
+  max-width: 40ch;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Три карточки */
+.case-section__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+@media (max-width: 900px) {
+  .case-section__cards { grid-template-columns: 1fr; gap: 16px; }
+}
+.case-section__card {
+  display: flex;
+  flex-direction: column;
+}
+.case-section__card-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--ink);
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+.case-section__card-text {
+  font-size: 15px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Анонимная строка */
+.case-section__anon {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-faint);
+  text-align: center;
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+
+/* Bridge-ссылка */
+.case-section__bridge {
+  text-align: center;
+  margin: 0;
+}
+.case-section__bridge-link {
+  color: var(--neon);
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  transition: text-shadow .2s;
+}
+.case-section__bridge-link:hover {
+  text-shadow: 0 0 16px rgba(0,200,255,.5);
+}
+
+/* === Quiz === */
+.quiz-section__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(0,200,255,.5);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.quiz-section__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 3.5vw, 44px);
+  color: var(--ink);
+  margin: 0 0 20px;
+  line-height: 1.15;
+}
+.quiz-section__lead {
+  font-size: 18px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  max-width: 52ch;
+  margin-bottom: 48px;
+}
+#quiz-root {
+  min-height: 200px;
+}

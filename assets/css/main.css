@@ -878,3 +878,229 @@ section {
 #quiz-root {
   min-height: 200px;
 }
+
+/* === Packages === */
+.packages__lead {
+  font-size: clamp(17px, 1.8vw, 20px);
+  color: var(--ink-muted);
+  line-height: 1.6;
+  max-width: 56ch;
+  margin: 0 0 56px;
+}
+
+.packages__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  align-items: start;
+  margin-bottom: 48px;
+}
+@media (max-width: 900px) {
+  .packages__grid { grid-template-columns: 1fr; gap: 20px; }
+}
+
+/* Карточка пакета */
+.packages__card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-top: 28px;
+}
+
+/* Выделенная центральная карточка */
+.packages__card--featured {
+  border-color: var(--neon);
+  box-shadow: 0 0 32px rgba(0,200,255,.12);
+}
+.packages__card--featured:hover {
+  box-shadow: 0 0 48px rgba(0,200,255,.22);
+}
+
+/* Badge «Популярный» */
+.packages__badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--neon);
+  color: #080C16;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  border-radius: 100px;
+  padding: 3px 14px;
+  white-space: nowrap;
+  letter-spacing: .04em;
+}
+
+.packages__card-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.packages__card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--ink);
+  margin: 0 0 6px;
+  line-height: 1.1;
+}
+.packages__card--featured .packages__card-title {
+  color: var(--neon);
+  text-shadow: 0 0 20px rgba(0,200,255,.35);
+}
+
+.packages__card-for {
+  font-size: 14px;
+  color: var(--ink-muted);
+  margin: 0 0 20px;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Список пунктов */
+.packages__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.packages__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+/* Иконка галочки */
+.packages__check {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  background: rgba(240,237,230,.06);
+  border: 1px solid var(--rule-solid);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  color: var(--ink-muted);
+}
+.packages__check--neon {
+  background: rgba(0,200,255,.08);
+  border-color: rgba(0,200,255,.2);
+  color: var(--neon);
+}
+
+/* Пункт "плюс" (дополнительный) */
+.packages__list-plus {
+  border-top: 1px solid var(--rule-solid);
+  padding-top: 12px;
+  margin-top: 4px;
+}
+
+.packages__cta {
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+}
+
+/* Строка гарантий */
+.packages__guarantees {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-muted);
+  padding-top: 8px;
+}
+.packages__guarantee-item {
+  letter-spacing: .03em;
+}
+.packages__guarantee-dot {
+  color: var(--neon);
+  opacity: .4;
+}
+
+/* === Trust 152-FZ === */
+.trust__header {
+  margin-bottom: 56px;
+}
+.trust__eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.trust__eyebrow-row .section-eyebrow {
+  margin-bottom: 0;
+}
+
+/* Badge «с 01.09.2025» */
+.trust__badge {
+  background: rgba(246,224,87,.07);
+  border: 1px solid rgba(246,224,87,.2);
+  color: #F6E057;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 4px 14px;
+  letter-spacing: .04em;
+  white-space: nowrap;
+}
+
+.trust__lead {
+  font-size: clamp(17px, 1.8vw, 20px);
+  color: var(--ink-muted);
+  line-height: 1.6;
+  max-width: 60ch;
+  margin: 0;
+}
+
+/* Сетка карточек */
+.trust__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .trust__grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+}
+@media (max-width: 480px) {
+  .trust__grid { grid-template-columns: 1fr; gap: 16px; }
+}
+
+.trust__card {
+  display: flex;
+  flex-direction: column;
+}
+
+.trust__card-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--ink);
+  margin: 0 0 10px;
+  line-height: 1.25;
+}
+
+.trust__card-text {
+  font-size: 15px;
+  color: var(--ink-muted);
+  line-height: 1.6;
+  margin: 0;
+}

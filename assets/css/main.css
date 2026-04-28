@@ -752,6 +752,35 @@ section {
   margin: 0;
 }
 
+/* === Story body (single column) === */
+.story__body {
+  max-width: 680px;
+}
+
+.story__insight {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-left: 2px solid var(--rule);
+  padding-left: 24px;
+  margin: 32px 0;
+}
+.story__insight-p {
+  font-size: 17px;
+  color: rgba(240,237,230,.75);
+  line-height: 1.7;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--rule-solid);
+}
+.story__insight-p:last-child {
+  border-bottom: none;
+}
+.story__insight-p--offer {
+  color: var(--ink);
+  font-size: 18px;
+  font-weight: 500;
+}
+
 /* === Case === */
 .case-section__eyebrow {
   font-family: var(--font-mono);

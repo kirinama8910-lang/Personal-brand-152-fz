@@ -14,8 +14,68 @@
   </style>
 </head>
 <body>
-  <section id="hero" data-section="01" data-title="Hero">
-    <h2>Секция 1 — Hero (наполнение в Task 1)</h2>
+  <nav class="site-nav">
+    <div class="site-nav__logo">Марина <span>Кирина</span></div>
+    <div class="site-nav__services">
+      <span class="site-nav__tag">сайты</span>
+      <span class="site-nav__tag">лендинги</span>
+      <span class="site-nav__tag">портфолио</span>
+      <span class="site-nav__tag">визуальные концепты</span>
+      <span class="site-nav__tag">автоматизации</span>
+      <span class="site-nav__tag">боты</span>
+    </div>
+  </nav>
+  <section id="hero" data-section="01" class="hero">
+    <div class="container">
+      <div class="hero__inner">
+
+        <div class="hero__left">
+          <h1 class="hero__title">
+            Лучшее, что вы<br>
+            сделаете для бизнеса —<br>
+            перестанете быть в нём<br>
+            <span class="hero__neon">незаменимым.</span>
+          </h1>
+          <p class="hero__sub">
+            Когда каждое сообщение и каждая запись проходят через вас —
+            бизнес упирается в ваше время. Посчитайте, во что это
+            обходится в рублях по вашим ценам.
+          </p>
+          <p class="hero__micro">5 вопросов · без регистрации · контакт только если захотите</p>
+          <div class="hero__btns">
+            <a class="hero__cta btn-primary" href="#quiz">Посчитать за 2 минуты →</a>
+            <a class="hero__ghost btn-ghost" href="#case">Смотреть кейс</a>
+          </div>
+        </div>
+
+        <div class="hero__right">
+          <div class="hero__photo-wrap">
+            <div class="hero__photo-glow"></div>
+            <div class="hero__photo-frame">
+              <img src="./photo.png" alt="Марина Кирина" class="hero__photo-img">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <span class="hero__stat-num">×2</span>
+          <span class="hero__stat-label">рост конверсии у клиентов</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">6 млн ₽</span>
+          <span class="hero__stat-label">макс. штраф за нарушение 152-ФЗ</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">0</span>
+          <span class="hero__stat-label">Google-сервисов на вашем сайте</span>
+        </div>
+      </div>
+    </div>
   </section>
   <section id="pain" data-section="02" data-title="Узнаёте?">
     <h2>Секция 2 — Боль (наполнение в Task 2)</h2>
@@ -53,7 +113,7 @@
   <!-- cookie-banner будет добавлен в Task 7 -->
   <script>
 (function(){
-  const els = document.querySelectorAll('section, .card, .hero__title, .hero__lead');
+  const els = document.querySelectorAll('section:not(.hero), .card');
   const io = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }

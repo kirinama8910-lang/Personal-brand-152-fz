@@ -9,7 +9,7 @@
   <!-- TODO: добавить домен webhook в connect-src когда будет известен (сейчас constants.js WEBHOOK_URL = '__PLACEHOLDER__') -->
   <link rel="stylesheet" href="./assets/css/main.css">
   <link rel="stylesheet" href="./assets/css/quiz.css">
-  <script src="./assets/js/cookie-banner.js"></script>
+  <script src="./assets/js/cookie-banner.js" defer></script>
   <style>
     html { scroll-behavior: smooth; }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -674,7 +674,7 @@
       </div>
     </div>
   </footer>
-  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" hidden>
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" aria-label="Уведомление об использовании cookie" hidden>
     <div class="cookie-banner__inner">
       <p class="cookie-banner__text">
         Используем cookie для аналитики. Аналитические cookie — только с вашего согласия.
@@ -688,9 +688,9 @@
     </div>
   </div>
 
-  <div id="cookie-settings" class="cookie-settings" role="dialog" aria-modal="true" hidden>
+  <div id="cookie-settings" class="cookie-settings" role="dialog" aria-modal="true" aria-labelledby="cs-title" hidden>
     <div class="cookie-settings__inner">
-      <h3 class="cookie-settings__title">Настройки cookie</h3>
+      <h3 id="cs-title" class="cookie-settings__title">Настройки cookie</h3>
       <div class="cookie-settings__list">
         <label class="cookie-settings__item">
           <input type="checkbox" checked disabled> Необходимые (всегда активны)

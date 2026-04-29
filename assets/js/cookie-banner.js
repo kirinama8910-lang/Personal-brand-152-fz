@@ -34,6 +34,16 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    // manage-consent always available regardless of banner state
+    var btnManage = document.getElementById('manage-consent');
+    if (btnManage) {
+      btnManage.addEventListener('click', function (e) {
+        e.preventDefault();
+        var s = document.getElementById('cookie-settings');
+        if (s) s.removeAttribute('hidden');
+      });
+    }
+
     var consent = getConsent();
     if (consent) { applyConsent(consent); return; }
 

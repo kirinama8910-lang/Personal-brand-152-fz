@@ -674,7 +674,37 @@
       </div>
     </div>
   </footer>
-  <!-- cookie-banner будет добавлен в Task 7 -->
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-modal="true" hidden>
+    <div class="cookie-banner__inner">
+      <p class="cookie-banner__text">
+        Используем cookie для аналитики. Аналитические cookie — только с вашего согласия.
+        <a href="./cookie-policy.html" class="cookie-banner__link">Подробнее</a>
+      </p>
+      <div class="cookie-banner__actions">
+        <button id="cb-accept-all" class="cb-btn cb-btn--primary">Принять все</button>
+        <button id="cb-reject" class="cb-btn cb-btn--secondary">Только необходимые</button>
+        <button id="cb-settings-open" class="cb-btn cb-btn--link">Настроить</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="cookie-settings" class="cookie-settings" role="dialog" aria-modal="true" hidden>
+    <div class="cookie-settings__inner">
+      <h3 class="cookie-settings__title">Настройки cookie</h3>
+      <div class="cookie-settings__list">
+        <label class="cookie-settings__item">
+          <input type="checkbox" checked disabled> Необходимые (всегда активны)
+        </label>
+        <label class="cookie-settings__item">
+          <input type="checkbox" id="cs-analytics"> Аналитические (Яндекс.Метрика)
+        </label>
+        <label class="cookie-settings__item">
+          <input type="checkbox" id="cs-marketing"> Маркетинговые
+        </label>
+      </div>
+      <button id="cs-save" class="cb-btn cb-btn--primary">Сохранить</button>
+    </div>
+  </div>
   <script src="./assets/js/reveal.js"></script>
   <script type="module" src="./assets/js/quiz-embed.js"></script>
 </body>

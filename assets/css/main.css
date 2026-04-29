@@ -1352,3 +1352,88 @@ section {
   font-size: 15px;
   color: var(--neon);
 }
+
+/* === Кнопка — mark (жёлтая) === */
+.btn-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 36px;
+  min-height: 52px;
+  background: var(--mark);
+  color: var(--mark-ink);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-mark:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 40px rgba(246,224,87,.35);
+  color: var(--mark-ink);
+}
+
+/* === CTA Final === */
+#cta-final {
+  padding: var(--section-gap) 0;
+}
+.cta-final__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.cta-final__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(0,200,255,.5);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.cta-final__eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: rgba(0,200,255,.3);
+  flex-shrink: 0;
+}
+.cta-final__heading {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 6vw, 60px);
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.1;
+  margin: 0;
+}
+.cta-final__sub {
+  font-size: 18px;
+  color: var(--ink-muted);
+  max-width: 52ch;
+  line-height: 1.65;
+  margin: 0;
+}
+.cta-final__btn-wrap {
+  position: relative;
+  display: inline-flex;
+  margin-top: 8px;
+}
+.cta-final__orb {
+  position: absolute;
+  inset: -60px;
+  background: radial-gradient(circle, var(--neon) 0%, transparent 70%);
+  filter: blur(80px);
+  opacity: .15;
+  pointer-events: none;
+  border-radius: 50%;
+}

@@ -160,15 +160,6 @@ section {
   section { padding: var(--section-gap-mobile) 0; }
 }
 
-/* Eyebrow-метки (нумерация секций) */
-.section-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: rgba(0,200,255,.5);
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
 
 /* Заголовки секций */
 .section-title {
@@ -433,14 +424,6 @@ section {
 }
 
 /* === Pain === */
-.pain__eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: rgba(0,200,255,.5);
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
 .pain__title {
   font-family: var(--font-display);
   font-weight: 700;
@@ -586,14 +569,6 @@ section {
 }
 
 /* === Story === */
-.story__eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: rgba(0,200,255,.5);
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
 .story__title {
   font-family: var(--font-display);
   font-weight: 700;
@@ -744,14 +719,6 @@ section {
 }
 
 /* === Case === */
-.case-section__eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: rgba(0,200,255,.5);
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
 .case-section__title {
   font-family: var(--font-display);
   font-weight: 700;
@@ -849,14 +816,6 @@ section {
   align-items: center;
   text-align: center;
 }
-.quiz-section__eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: rgba(0,200,255,.5);
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-}
 .quiz-section__title {
   font-family: var(--font-display);
   font-weight: 700;
@@ -933,15 +892,6 @@ section {
   padding: 3px 14px;
   white-space: nowrap;
   letter-spacing: .04em;
-}
-
-.packages__card-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--ink-muted);
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  margin: 0 0 8px;
 }
 
 .packages__card-title {
@@ -1040,16 +990,6 @@ section {
 /* === Trust 152-FZ === */
 .trust__header {
   margin-bottom: 56px;
-}
-.trust__eyebrow-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-.trust__eyebrow-row .section-eyebrow {
-  margin-bottom: 0;
 }
 
 /* Badge «с 01.09.2025» */
@@ -1389,24 +1329,6 @@ section {
   gap: 24px;
   max-width: 640px;
   margin: 0 auto;
-}
-.cta-final__eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: rgba(0,200,255,.5);
-  letter-spacing: .15em;
-  text-transform: uppercase;
-}
-.cta-final__eyebrow::before {
-  content: '';
-  display: block;
-  width: 32px;
-  height: 1px;
-  background: rgba(0,200,255,.3);
-  flex-shrink: 0;
 }
 .cta-final__heading {
   font-family: var(--font-display);

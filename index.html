@@ -17,14 +17,16 @@
 </head>
 <body>
   <nav class="site-nav">
-    <div class="site-nav__logo">Марина <span>Кирина</span></div>
-    <div class="site-nav__services">
-      <span class="site-nav__tag">сайты</span>
-      <span class="site-nav__tag">лендинги</span>
-      <span class="site-nav__tag">портфолио</span>
-      <span class="site-nav__tag">визуальные концепты</span>
-      <span class="site-nav__tag">автоматизации</span>
-      <span class="site-nav__tag">боты</span>
+    <div class="site-nav__pill">
+      <div class="site-nav__logo">Марина <span>Кирина</span></div>
+      <div class="site-nav__services">
+        <span class="site-nav__tag">сайты</span>
+        <span class="site-nav__tag">лендинги</span>
+        <span class="site-nav__tag">портфолио</span>
+        <span class="site-nav__tag">визуальные концепты</span>
+        <span class="site-nav__tag">автоматизации</span>
+        <span class="site-nav__tag">боты</span>
+      </div>
     </div>
   </nav>
   <section id="hero" data-section="01" class="hero">
@@ -50,10 +52,14 @@
         </div>
 
         <div class="hero__right">
-          <div class="hero__photo-wrap">
-            <div class="hero__photo-glow"></div>
-            <div class="hero__photo-frame">
+          <div class="hero__card">
+            <div class="hero__card-photo">
               <img src="./photo.png" alt="Марина Кирина" class="hero__photo-img">
+              <div class="hero__card-overlay"></div>
+            </div>
+            <div class="hero__card-nameplate">
+              <strong class="hero__card-name">Марина Кирина</strong>
+              <span class="hero__card-desc">сайты · боты · автоматизации</span>
             </div>
           </div>
         </div>

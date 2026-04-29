@@ -41,28 +41,43 @@
     if (!banner) return;
     banner.removeAttribute('hidden');
 
-    document.getElementById('cb-accept-all').addEventListener('click', function () {
-      var c = { necessary: true, analytics: true, marketing: true };
-      saveConsent(c); applyConsent(c); hideBanner();
-    });
+    var btnAccept = document.getElementById('cb-accept-all');
+    var btnReject = document.getElementById('cb-reject');
+    var btnSettings = document.getElementById('cb-settings-open');
+    var btnSave = document.getElementById('cs-save');
 
-    document.getElementById('cb-reject').addEventListener('click', function () {
-      saveConsent({ necessary: true, analytics: false, marketing: false });
-      hideBanner();
-    });
+    if (btnAccept) {
+      btnAccept.addEventListener('click', function () {
+        var c = { necessary: true, analytics: true, marketing: true };
+        saveConsent(c); applyConsent(c); hideBanner();
+      });
+    }
 
-    document.getElementById('cb-settings-open').addEventListener('click', function () {
-      var s = document.getElementById('cookie-settings');
-      if (s) s.removeAttribute('hidden');
-    });
+    if (btnReject) {
+      btnReject.addEventListener('click', function () {
+        saveConsent({ necessary: true, analytics: false, marketing: false });
+        hideBanner();
+      });
+    }
 
-    document.getElementById('cs-save').addEventListener('click', function () {
-      var c = {
-        necessary: true,
-        analytics: document.getElementById('cs-analytics').checked,
-        marketing: document.getElementById('cs-marketing').checked
-      };
-      saveConsent(c); applyConsent(c); hideSettings(); hideBanner();
-    });
+    if (btnSettings) {
+      btnSettings.addEventListener('click', function () {
+        var s = document.getElementById('cookie-settings');
+        if (s) s.removeAttribute('hidden');
+      });
+    }
+
+    if (btnSave) {
+      btnSave.addEventListener('click', function () {
+        var csAnalytics = document.getElementById('cs-analytics');
+        var csMarketing = document.getElementById('cs-marketing');
+        var c = {
+          necessary: true,
+          analytics: csAnalytics ? csAnalytics.checked : false,
+          marketing: csMarketing ? csMarketing.checked : false
+        };
+        saveConsent(c); applyConsent(c); hideSettings(); hideBanner();
+      });
+    }
   });
 })();

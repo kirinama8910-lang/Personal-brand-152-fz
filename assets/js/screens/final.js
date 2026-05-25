@@ -76,10 +76,19 @@ export function renderFinal(root, { state, onSubmit }) {
 function mountFallbackForm(slot, onSubmit, ctx) {
   slot.innerHTML = `
     <div class="quiz-divider"><span>или</span></div>
+    <p class="quiz-fallback-intro">Нет Telegram? Пришлю расчёт на почту.</p>
     <form class="quiz-fallback" novalidate>
       <label class="quiz-field">
-        <span>Ваш @username в Telegram или MAX</span>
-        <input type="text" name="username" autocomplete="off" placeholder="@username" required minlength="3" />
+        <span>Имя</span>
+        <input type="text" name="name" autocomplete="given-name" required minlength="2" />
+      </label>
+      <label class="quiz-field">
+        <span>Email</span>
+        <input type="email" name="email" autocomplete="email" required />
+      </label>
+      <label class="quiz-field">
+        <span>Телефон</span>
+        <input type="tel" name="phone" autocomplete="tel" required />
       </label>
       <label class="quiz-checkbox">
         <input type="checkbox" name="consent" required />
@@ -92,16 +101,28 @@ function mountFallbackForm(slot, onSubmit, ctx) {
   `;
 
   const form = slot.querySelector('form');
-  const usernameInput = form.elements.namedItem('username');
+  const nameInput = form.elements.namedItem('name');
+  const emailInput = form.elements.namedItem('email');
+  const phoneInput = form.elements.namedItem('phone');
   const consentInput = form.elements.namedItem('consent');
   const honeypot = form.elements.namedItem('ignore_me');
   const submitBtn = form.querySelector('button[type="submit"]');
   const errorEl = form.querySelector('.quiz-form-error');
 
+  const isPhoneValid = (val) => val.replace(/\D/g, '').length >= 10;
+  const isEmailValid = (input) => input.checkValidity() && input.value.includes('@');
+
   const syncDisabled = () => {
-    submitBtn.disabled = !(usernameInput.value.trim().length >= 3 && consentInput.checked);
+    submitBtn.disabled = !(
+      nameInput.value.trim().length >= 2 &&
+      isEmailValid(emailInput) &&
+      isPhoneValid(phoneInput.value) &&
+      consentInput.checked
+    );
   };
-  usernameInput.addEventListener('input', syncDisabled);
+  nameInput.addEventListener('input', syncDisabled);
+  emailInput.addEventListener('input', syncDisabled);
+  phoneInput.addEventListener('input', syncDisabled);
   consentInput.addEventListener('change', syncDisabled);
 
   form.addEventListener('submit', async (e) => {
@@ -116,7 +137,11 @@ function mountFallbackForm(slot, onSubmit, ctx) {
     try {
       await onSubmit({
         path: 'fallback',
-        contact: { username: usernameInput.value.trim() },
+        contact: {
+          name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
+          phone: phoneInput.value.trim(),
+        },
         consent: true,
         tag: ctx.tag,
       });

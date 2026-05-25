@@ -120,7 +120,7 @@ export function startQuiz(rootSelector = '#quiz-root') {
         if (typeof consent === 'boolean') state.set('consent', consent);
         const payload = buildPayload(state, {
           path,
-          contact: contact || { username: null },
+          contact,
           consent: path === 'main' ? false : !!consent,
         });
         if (path === 'main') {

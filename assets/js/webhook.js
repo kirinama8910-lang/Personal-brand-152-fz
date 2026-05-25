@@ -59,7 +59,7 @@ export function buildPayload(state, { path, contact, consent }) {
     },
     calc: answers.calc || null,
     scoring: answers.scoring || null,
-    contact: contact || { username: null },
+    contact: contact || { name: null, email: null, phone: null },
     consent: !!consent,
     meta: { ...meta, time_per_q: toTimePerQ(timings) },
   };

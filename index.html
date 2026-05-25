@@ -47,7 +47,7 @@
           </p>
           <p class="hero__micro">5 вопросов · без регистрации · контакт только если захотите</p>
           <div class="hero__btns">
-            <a class="hero__cta btn-primary" href="#quiz">Посчитать за 2 минуты →</a>
+            <a class="hero__cta btn-primary" href="#quiz">Узнать, сколько теряю каждый месяц →</a>
           </div>
         </div>
 
@@ -254,7 +254,7 @@
               Передача кода в GitHub + видеоинструкция
             </li>
           </ul>
-          <a href="#quiz" class="btn-ghost packages__cta">Посчитать за 2 минуты</a>
+          <a href="#quiz" class="btn-ghost packages__cta">Получить расчёт потерь бесплатно</a>
         </div>
 
         <!-- Пакет Студия (выделенный) -->
@@ -322,7 +322,7 @@
               Сценарий возврата спящих клиентов
             </li>
           </ul>
-          <a href="#quiz" class="btn-primary packages__cta">Посчитать за 2 минуты</a>
+          <a href="#quiz" class="btn-primary packages__cta">Получить расчёт потерь бесплатно</a>
         </div>
 
         <!-- Пакет Поток -->
@@ -401,7 +401,7 @@
               Несколько сценариев возврата
             </li>
           </ul>
-          <a href="#quiz" class="btn-ghost packages__cta">Посчитать за 2 минуты</a>
+          <a href="#quiz" class="btn-ghost packages__cta">Получить расчёт потерь бесплатно</a>
         </div>
 
       </div><!-- /packages__grid -->
@@ -638,7 +638,21 @@
         <p class="cta-final__sub">Пока вы решаете, в каком из соседних мест уже сидит ваш следующий клиент. Посчитайте, во сколько это обходится за месяц.</p>
         <div class="cta-final__btn-wrap">
           <div class="cta-final__orb" aria-hidden="true"></div>
-          <a href="#quiz" class="btn-mark">Посчитать за 2 минуты</a>
+          <form class="cta-final__form" id="cta-final-form" novalidate>
+            <p class="cta-final__form-hint">Оставьте контакт — пришлю расчёт и отвечу на вопросы лично.</p>
+            <div class="cta-final__fields">
+              <input class="cta-final__input" type="text" name="name" placeholder="Имя" autocomplete="name" required minlength="2" />
+              <input class="cta-final__input" type="tel" name="phone" placeholder="Телефон" autocomplete="tel" required />
+              <input class="cta-final__input" type="email" name="email" placeholder="Email" autocomplete="email" required />
+            </div>
+            <label class="cta-final__consent-label">
+              <input type="checkbox" name="consent" required />
+              <span>Я даю <a href="/consent.html">Согласие на обработку персональных данных</a> и принимаю <a href="/privacy-policy.html">Политику конфиденциальности</a></span>
+            </label>
+            <input type="text" name="ignore_me" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true" />
+            <button type="submit" class="btn-mark cta-final__submit" disabled>Отправить</button>
+            <p class="cta-final__error" role="alert" hidden></p>
+          </form>
         </div>
       </div>
     </div>
@@ -712,5 +726,6 @@
   </div>
   <script src="./assets/js/reveal.js"></script>
   <script type="module" src="./assets/js/quiz-embed.js"></script>
+  <script type="module" src="./assets/js/cta-form.js"></script>
 </body>
 </html>

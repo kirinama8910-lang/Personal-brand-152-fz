@@ -10,18 +10,22 @@
 
 | Файл / папка | Что это |
 |---|---|
-| SPEC.md | Главная спецификация: ЦА, смыслы, структура, дизайн |
-| CLAUDE.md | Правила языка и табу для всех текстов |
-| docs/superpowers/plans/2026-04-28-landing-implementation.md | План из 10 задач для Claude Code subagents |
+| PROJECT_PASSPORT.md | Снапшот текущего состояния и приоритетов |
+| CLAUDE.md | Правила работы (язык, табу, карта проекта, журналы) |
+| SPEC.md | Индекс с ссылками на нарезку по разделам |
+| docs/spec/ | Нарезанный спек: ЦА, смыслы, структура, дизайн, 152-ФЗ |
+| docs/journal/ | Журналы: SESSIONS (саммари сессий), DECISIONS, PATTERNS, CASES |
+| docs/quiz-spec.md | Архитектура и логика квиза |
+| docs/superpowers/plans/ | Планы реализации |
+| docs/superpowers/specs/ | Дизайн-документы |
 | quiz.html | Квиз-диагностика (встраивается в лендинг) |
+| index.html | Лендинг |
+| consent.html, privacy-policy.html, cookie-policy.html | Юр.документы |
 | assets/css/quiz.css | Стили квиза |
 | assets/js/ | JS-модули квиза (11 файлов + 9 экранов) |
-| docs/quiz-spec.md | Архитектура и логика квиза |
-| consent.html | Согласие на обработку персональных данных |
-| privacy-policy.html | Политика конфиденциальности |
-| cookie-policy.html | Политика использования cookie |
-| .claude/skills/152-fz/ | 13 скиллов по 152-ФЗ |
-| assets/fonts/ | Geologica + Onest + PT Mono (variable-TTF, SIL OFL 1.1) — уже в репо |
+| assets/fonts/ | Geologica + Onest + PT Mono (variable-TTF, SIL OFL 1.1) |
+| .claude/skills/ | Скиллы Claude Code: 152-fz, frontend-design, uluchshatel-promptov |
+| .claude/settings.json | Read-only-допуски для Claude Code |
 | photo.png | Фото автора для лендинга |
 
 ## Перед запуском — заполнить вручную

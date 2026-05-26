@@ -25,7 +25,6 @@
 | assets/js/ | JS-модули квиза (11 файлов + 9 экранов) |
 | assets/fonts/ | Geologica + Onest + PT Mono (variable-TTF, SIL OFL 1.1) |
 | .claude/skills/ | Скиллы Claude Code: 152-fz, frontend-design, uluchshatel-promptov |
-| .claude/settings.json | Read-only-допуски для Claude Code |
 | photo.png | Фото автора для лендинга |
 
 ## Перед запуском — заполнить вручную
